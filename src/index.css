@@ -17,8 +17,6 @@
 
 body {
   font-family: "Lato", sans-serif;
-  max-width: 1440px;
-  margin: auto;
 }
 
 /* nav style */
@@ -83,9 +81,6 @@ nav {
 }
 
 @media (max-width: 950px) {
-    body{
-        background: #fff;
-    }
   .img-select-carousel {
     width: 2rem;
     height: 2rem;

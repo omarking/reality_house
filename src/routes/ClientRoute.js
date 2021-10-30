@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router';
+import Footer from '../components/ui/Footer';
 import { NavBar } from '../components/ui/NavBar';
 import { Articulo } from '../pages/client/Articulo';
 import { Index } from '../pages/client/Index';
@@ -16,6 +17,7 @@ export const ClientRoute = () => {
                 <Route exact path="/tienda/producto" component={Articulo} />
                 <Redirect to="/" />
             </Switch>
+            <Footer/>
         </>
     )
 }

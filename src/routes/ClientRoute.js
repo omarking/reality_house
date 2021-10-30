@@ -6,7 +6,6 @@ import { Articulo } from '../pages/client/Articulo';
 import { Index } from '../pages/client/Index';
 import { Productos } from '../pages/client/Productos';
 
-
 export const ClientRoute = () => {
     return (
         <>

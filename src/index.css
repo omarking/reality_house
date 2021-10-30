@@ -80,6 +80,15 @@ nav {
   filter: opacity(0.5);
 }
 
+/* Style Login */
+.img-login{
+  height: 500px;
+  background-image: url("img/mueble_header.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:auto 100%;
+}
+
 @media (max-width: 950px) {
   .img-select-carousel {
     width: 2rem;

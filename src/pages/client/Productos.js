@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CardProductos } from "../general/CardProductos";
+import { CardProductos } from "../../components/general/CardProductos";
+import { CategoryBar } from "../../components/general/CategoryBar";
 
 export const Productos = () => {
   return (
     <section id="productos">
-      <h2 className="text-center mt-5 mb-2">Productos</h2>
+      <h2 className="text-center mt-5 mb-2">Nombre Tienda</h2>
       <hr className="w-75 " />
-      <div className="row w-75 m-auto justify-content-between">
+      <div className="row w-75 m-auto justify-content-between align-middle">
         <div class="form-group">
           <label>Seleccione Tienda</label>
           <select class="form-control">
@@ -18,8 +19,10 @@ export const Productos = () => {
             <option>Mueble 5</option>
           </select>
         </div>
-        <h3>Nombre Tienda</h3>
+        <CategoryBar />
+        <input className="form-control col-2" type="text" placeholder="Buscar" />
       </div>
+
       <div className="row justify-content-center m-auto">
         <CardProductos />
         <CardProductos />
@@ -35,12 +38,6 @@ export const Productos = () => {
         <CardProductos />
       </div>
       <div className="row justify-content-center">
-        <Link
-          className="btn color-components col-md-2 col-6 row-animation"
-          to="/tienda"
-        >
-          Ver Mas
-        </Link>
       </div>
     </section>
   );

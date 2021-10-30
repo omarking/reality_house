@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const CardProductos = () => {
   return (
     <Link
-      to="/"
+      to="/tienda/producto"
       className="card col-10 col-md-3 mx-auto mx-md-2 mb-4"
       style={{ textDecoration: "none", color: "#000" }}>
       <div

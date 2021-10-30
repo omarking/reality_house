@@ -1,11 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import { CardProductos } from "../../components/general/CardProductos";
 import { CategoryBar } from "../../components/general/CategoryBar";
 
 export const Productos = () => {
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    })
+
   return (
-    <section id="productos">
+    <div id="productos">
       <h2 className="text-center mt-5 mb-2">Nombre Tienda</h2>
       <hr className="w-75 " />
       <div className="row w-75 m-auto justify-content-between align-middle">
@@ -39,6 +43,6 @@ export const Productos = () => {
       </div>
       <div className="row justify-content-center">
       </div>
-    </section>
+    </div>
   );
 };

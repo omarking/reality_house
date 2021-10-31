@@ -89,6 +89,15 @@ nav {
   background-size:auto 100%;
 }
 
+/* style Perfil */
+.img-perfil{
+  width: 200px;
+  height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
 @media (max-width: 950px) {
   .img-select-carousel {
     width: 2rem;

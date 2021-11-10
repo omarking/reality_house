@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import Footer from '../components/ui/Footer';
 import { NavBar } from '../components/ui/NavBar';

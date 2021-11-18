@@ -25,7 +25,7 @@ export const AgregarProducto = () => {
         <div className="form-group">
           <label className="ml-2">Categoria</label>
           <select
-            class="form-control col-md-2 col-10 ml-2"
+            className="form-control col-md-2 col-10 ml-2"
             id="exampleFormControlSelect1"
           >
             <option>1</option>

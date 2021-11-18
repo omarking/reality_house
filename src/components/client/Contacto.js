@@ -89,7 +89,7 @@ export const Contacto = () => {
                   <div className="row">
                       <Link to="www.google.com" style={{textDecoration:'none', color:'#000', fontSize:'2rem', margin:'0 5px'}} ><i className="uil uil-facebook"></i></Link>
                       <Link to="www.google.com" style={{textDecoration:'none', color:'#000', fontSize:'2rem', margin:'0 5px'}}><i className="uil uil-instagram"></i></Link>
-                      <Link to="www.google.com" style={{textDecoration:'none', color:'#000', fontSize:'2rem', margin:'0 5px'}}><i class="uil uil-youtube"></i></Link>
+                      <Link to="www.google.com" style={{textDecoration:'none', color:'#000', fontSize:'2rem', margin:'0 5px'}}><i className="uil uil-youtube"></i></Link>
                   </div>
               </div>
 

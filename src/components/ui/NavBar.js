@@ -40,7 +40,7 @@ export const NavBar = () => {
           <li className="nav-item">
             <Link className="nav-link text-light" to={{
               pathname:"/",
-              hash:"#contacto"
+              hash:"contacto"
             }} >
               Contactos
             </Link>

@@ -17,8 +17,8 @@ export const PerfilVendedor = () => {
         <CategoryBar />
       </div>
       <div className="row w-100">
-        <div class="card col-10 mx-auto mt-3">
-          <div class="card-body row">
+        <div className="card col-10 mx-auto mt-3">
+          <div className="card-body row">
             <div
               className="img-card col-2"
               style={{
@@ -37,26 +37,26 @@ export const PerfilVendedor = () => {
 
             <div className="col-4">
               <h5>Modelo 3D Terminado:</h5>
-              <div class="form-check">
+              <div className="form-check">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="checkbox"
                   value=""
                   id="defaultCheck1"
                 />
-                <label class="form-check-label" for="defaultCheck1">
+                <label className="form-check-label" for="defaultCheck1">
                   Si
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="checkbox"
                   value=""
                   id="defaultCheck2"
                   disabled
                 />
-                <label class="form-check-label" for="defaultCheck2">
+                <label className="form-check-label" for="defaultCheck2">
                   No
                 </label>
               </div>

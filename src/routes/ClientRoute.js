@@ -12,8 +12,8 @@ export const ClientRoute = () => {
             <NavBar/>
             <Switch>
                 <Route exact path="/" component={Index} />
-                <Route exact path="/tienda" component={Productos} />
-                <Route exact path="/tienda/producto" component={Articulo} />
+                <Route exact path="/:tienda" component={Productos} />
+                <Route exact path="/:tienda/:codigoProducto?" component={Articulo} />
                 <Redirect to="/" />
             </Switch>
             <Footer/>

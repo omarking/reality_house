@@ -4,8 +4,8 @@ export const GeneradorQr = () => {
   return (
     <div>
       <h2 className="text-center mt-3">Generador QR</h2>
-      <div class="card my-3 mx-auto" style={{ width: "18rem" }}>
-        <div class="card-body">
+      <div className="card my-3 mx-auto" style={{ width: "18rem" }}>
+        <div className="card-body">
           <p>Aqui se visualizara el codigo QR</p>
           <br />
           <br />

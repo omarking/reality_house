@@ -20,7 +20,7 @@ export const CardVendedor = () => {
             Free
           </label>
           <input type="checkbox" className="form-check-input" />
-          <label class="form-check-label">
+          <label className="form-check-label">
             Premium
           </label>
         </div>

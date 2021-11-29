@@ -10,10 +10,13 @@ export const Login = ({history}) => {
       type: types.login,
       payload: {
         name: 'Alan',
-        status: 'user'
+        status: 'admin'
       }
     })
-    history.replace("/user");
+    history.replace("/admin");
+    const date = new Date()
+    const date2 = new Date(date.getTime() + 60000) 
+    localStorage.setItem("dateSesion", date2);
   }
 
 

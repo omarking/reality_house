@@ -1,6 +1,5 @@
-import userEvent from "@testing-library/user-event";
 import React, { useContext } from "react";
-import { Redirect, Route, Switch } from "react-router";
+import { Redirect, Switch } from "react-router";
 import { AuthContext } from "../auth/AuthContext";
 import Footer from "../components/ui/Footer";
 import { NavBar } from "../components/ui/NavBar";

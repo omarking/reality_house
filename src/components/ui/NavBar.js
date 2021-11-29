@@ -12,8 +12,28 @@ export const NavBar = () => {
       type: types.logout
     })
     history.replace("/")
-
+    localStorage.removeItem('dateSesion');
   }
+
+/*   setInterval(()=>{
+    const sesion = localStorage.getItem('dateSesion');
+    if(sesion){
+        const date1 = new Date(sesion);
+        const date2 = new Date();
+        console.log(date1)
+        console.log(date2)
+        if(date1.getTime() <= date2.getTime()){
+            console.log("Sesion expirada");
+            dispatch({
+              type: types.logout
+            })
+        }else{
+            console.log("Sesion no Expirada");
+        }
+    }else{
+        console.log("Variable no existe");
+    }
+},600) */
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light">

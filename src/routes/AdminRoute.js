@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Redirect, Switch } from "react-router";
 import { AuthContext } from "../auth/AuthContext";
 import Footer from "../components/ui/Footer";
-import { NavBar } from "../components/ui/NavBar";
+import { NavAdmin } from "../components/ui/NavAdmin";
 import { GeneradorQr } from "../pages/admin/GeneradorQr";
 import { Index } from "../pages/admin/Index";
 import { PerfilVendedor } from "../pages/admin/PerfilVendedor";
@@ -13,7 +13,7 @@ export const AdminRoute = () => {
   const { user } = useContext(AuthContext);
   return (
     <div>
-      <NavBar />
+      <NavAdmin />
       <Switch>
         <PrivateAdminRoute
           exact

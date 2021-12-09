@@ -11,16 +11,16 @@ const init = () => {
 export const App = () => {
   const [user, dispatch] = useReducer(authReducer, {}, init);
 
-  useEffect(() => {
+   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
-    const time = setInterval(()=> handlelogoutTime(), 6000)
+    /* const time = setInterval(()=> handlelogoutTime(), 6000)
     return () => {
         clearInterval(time)
-    };
+    }; */
   }, [user]);
   
 
-  const handlelogoutTime = () => {
+/*   const handlelogoutTime = () => {
     const sesion = localStorage.getItem("dateSesion");
     if (sesion) {
       const date1 = new Date(sesion);
@@ -32,7 +32,7 @@ export const App = () => {
         localStorage.removeItem("dateSesion");
       }
     }
-  };
+  }; */
 
   return (
     <AuthContext.Provider value={{ user, dispatch }}>

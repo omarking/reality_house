@@ -1,13 +1,26 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { useParams } from "react-router";
-import { useCallGET } from "../../hooks/useCallGET";
+import { useState } from "react/cjs/react.development";
 
 export const Articulo = () => {
   const { tienda, codigoProducto } = useParams();
-  const url = `http://localhost/realityhouse/api/productos.php?t=${tienda}&p=producto&id=${codigoProducto}`;
-  const { data, loading } = useCallGET(url);
-  const producto = !!data && data;
+  const [producto, setProducto] = useState([]);
 
-  if (loading) {
+  useEffect(()=>{
+    console.log(tienda + " " + codigoProducto);
+    handleProducto(tienda, codigoProducto);
+  },[tienda, codigoProducto])
+
+  const handleProducto = (tienda, codigoProducto) =>{
+    axios.get(`http://localhost/realityhouse/api/productos.php?t=${tienda}&p=producto&id=${codigoProducto}`)
+    .then(res => {
+      const data= res.data;
+      setProducto(data);
+    })
+  }
+
+  if (!producto) {
     return <div>Cargando</div>;
   } else {
     return (

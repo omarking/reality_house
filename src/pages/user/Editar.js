@@ -14,7 +14,7 @@ export const Editar = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     handleProducto(user.tienda, codigoProducto);
-    console.log("Cargando");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   const handleImg1 = (e) => {

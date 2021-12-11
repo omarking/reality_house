@@ -14,7 +14,7 @@ export const Inicio = () => {
             <Link className="btn color-components mt-3 row-animation"
             to={{
                 pathname:"/",
-                hash:"#contacto"
+                hash:"contacto"
             }}
             >Contactanos <i className="uil uil-navigator"></i></Link>
             

@@ -24,7 +24,7 @@ export const AdminRoute = () => {
         />
         <PrivateAdminRoute
           exact
-          path="/admin/vendedor"
+          path="/admin/:vendedor"
           component={PerfilVendedor}
           isAuthenticated={user.logged}
           rol={user.status}

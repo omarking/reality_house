@@ -1,15 +1,26 @@
-import React from "react";
-import { useCallGET } from "../../hooks/useCallGET";
+import React, { useEffect, useState } from "react";
+import { handlePost } from "../../functions/axiosPost";
 
 export const CategoryBar = ({ selectCategory }) => {
-  const url = "http://localhost/realityhouse/api/productos.php?p=categorias";
-  const { data, loading } = useCallGET(url);
-  const categoria = !!data && data;
+  const [categoria, setcategoria] = useState([]);
+
+  const handleGetData = () =>{
+    const f = new FormData();
+    f.append('p', 'query');
+    f.append('w', 'category');
+    const resp = handlePost(f);
+    resp.then(res => {setcategoria(res.data)})
+  }
+
+  useEffect(()=>{
+    handleGetData()
+  },[])
+
 
   return (
     <>
       <ul className="nav justify-content-center border h-50 rounded">
-        {loading ? (
+        {!categoria ? (
           <div className="spinner-border text-secondary" role="status">
             <span className="sr-only">Loading...</span>
           </div>

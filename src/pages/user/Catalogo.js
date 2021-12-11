@@ -4,6 +4,7 @@ import { AuthContext } from "../../auth/AuthContext";
 import { CardProducto } from "../../components/user/CardProducto";
 import { CategoryBar } from "../../components/general/CategoryBar";
 import { Link } from "react-router-dom";
+import { handlePost } from "../../functions/axiosPost";
 
 export const Catalogo = () => {
   const [searchText, setSearchText] = useState("");
@@ -13,43 +14,39 @@ export const Catalogo = () => {
 
 
   /* Con esta funcionn traemos todos los objetos de la tienda desde el back */
-  const dataObject = (tienda) => {
-    axios
-      .get(
-        `http://localhost/realityhouse/api/productos.php?p=productos&t=${tienda}`
-      )
-      .then((res) => {
-        setProductos(res.data);
-      });
+  const handleProducts = (tienda) => {
+    const p = new FormData();
+    p.append('p', 'getProductsFromStore');
+    p.append('w', tienda);
+    const resp = handlePost(p);
+    resp.then(res => { setProductos(res.data)});
   };
 
   /* con esta funcion traemos todos los objetos que coincidan con el texto que se busquen */
   const changeTextSearch = (event) => {
     setSearchText(event.target.value);
-    axios
-      .get(
-        `http://localhost/realityhouse/api/productos.php?p=buscar&t=${tienda}&w=${event.target.value}`
-      )
-      .then((res) => {
-        setProductos(res.data);
-      });
+    const t = new FormData();
+    t.append('p', 'searchProduct');
+    t.append('s', tienda);
+    t.append('w', event.target.value);
+    const resp = handlePost(t)
+    resp.then(res =>{setProductos(res.data)});
   };
 
   /* Buscamos Productos por categoria */
   const selectCategory = (categoria) => {
-    axios
-      .get(
-        `http://localhost/realityhouse/api/productos.php?p=categoria&t=${tienda}&c=${categoria}`
-      )
-      .then((res) => {
-        setProductos(res.data);
-      });
+    const t = new FormData();
+    t.append('p', 'getProductForCategory');
+    t.append('s', tienda);
+    t.append('c', categoria);
+    const resp = handlePost(t);
+    resp.then(res => {setProductos(res.data)});
   };
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dataObject(tienda);
+    handleProducts(tienda);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -72,7 +69,7 @@ export const Catalogo = () => {
 
       <div className="row justify-content-center m-auto">
         {/* Productos */}
-        {productos == null ? (
+        { !productos ? (
           <div className="spinner-border text-secondary" role="status">
             <span className="sr-only">Loading...</span>
           </div>

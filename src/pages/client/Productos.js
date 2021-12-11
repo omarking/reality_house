@@ -3,63 +3,64 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { CardProductos } from "../../components/general/CardProductos";
 import { CategoryBar } from "../../components/general/CategoryBar";
-import { useCallGET } from "../../hooks/useCallGET";
+import { handlePost } from "../../functions/axiosPost";
 
 export const Productos = () => {
   const [searchText, setSearchText] = useState("");
   const [productos, setProductos] = useState([]);
   const { tienda } = useParams();
+  const [store, setStore] = useState([])
 
   /* En este bloque llenamos la lista de tiendas */
-  const urlTiendas ="http://localhost/realityhouse/api/productos.php?p=tiendas";
-  const { data: dataTiendas, loading: loadingtiendas } = useCallGET(urlTiendas);
-  const tiendas = !!dataTiendas && dataTiendas;
-
+  const handleGetDataStore = () => {
+    const t = new FormData();
+    t.append('p', 'query');
+    t.append('w', 'stores');
+    const resp = handlePost(t);
+    resp.then(res => {setStore(res.data)});
+  }
 
   /* Con esta funcionn traemos todos los objetos de la tienda desde el back */
-  const dataObject = (tienda) => {
-    axios
-      .get(
-        `http://localhost/realityhouse/api/productos.php?p=productos&t=${tienda}`
-      )
-      .then((res) => {
-        setProductos(res.data);
-      });
+    const handleProducts = (tienda) => {
+    const t = new FormData();
+    t.append('p', 'getProductsFromStore');
+    t.append('w', tienda);
+    const resp = handlePost(t);
+    resp.then(res => { setProductos(res.data)})
   };
 
   /* con esta funcion traemos todos los objetos que coincidan con el texto que se busquen */
   const changeTextSearch = (event) => {
     setSearchText(event.target.value);
-    axios
-      .get(
-        `http://localhost/realityhouse/api/productos.php?p=buscar&t=${tienda}&w=${event.target.value}`
-      )
-      .then((res) => {
-        setProductos(res.data);
-      });
+    const t = new FormData();
+    t.append('p', 'searchProduct');
+    t.append('s', tienda);
+    t.append('w', event.target.value);
+    const resp = handlePost(t)
+    resp.then(res =>{setProductos(res.data)});
   };
 
   /* Con esta funcion redirigimos a otra tienda */
   const redirect = (event) => {
     window.location.href = `http://localhost:3000/${event.target.value}`;
   };
+
   /* Buscamos Productos por categoria */
   const selectCategory = (categoria) => {
-    console.log(categoria)
-    axios
-      .get(
-        `http://localhost/realityhouse/api/productos.php?p=categoria&t=${tienda}&c=${categoria}`
-      )
-      .then((res) => {
-        setProductos(res.data);
-      });
+    const t = new FormData();
+    t.append('p', 'getProductForCategory');
+    t.append('s', tienda);
+    t.append('c', categoria);
+    const resp = handlePost(t);
+    resp.then(res => {setProductos(res.data)});
   };
 
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dataObject(tienda);
-
+    handleProducts(tienda);
+    handleGetDataStore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -71,10 +72,10 @@ export const Productos = () => {
           <label>Seleccione Tienda</label>
           <select className="form-control" onChange={redirect}>
             <option>Seleccione</option>
-            {loadingtiendas ? (
+            {!store ? (
               <option>Cargando...</option>
             ) : (
-              tiendas.map((x, i) => {
+              store.map((x, i) => {
                 return <option key={i}>{x.nombreTienda}</option>;
               })
             )}
@@ -94,7 +95,7 @@ export const Productos = () => {
 
       <div className="row justify-content-center m-auto">
         {/* Productos */}
-        {productos == null ? (
+        { !productos ? (
           <div className="spinner-border text-secondary" role="status">
             <span className="sr-only">Loading...</span>
           </div>

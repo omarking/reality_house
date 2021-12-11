@@ -27,14 +27,13 @@ export const Login = ({ history }) => {
       }, 3000);
     }
     if (email.length > 0 && pass.length > 0) {
-      const resp = await axios.post(
-        "http://localhost/realityhouse/api/user.php",
-        {
-          p: "iniSesion",
-          user: email,
-          password: pass,
-        }
-      );
+      const u = new FormData();
+      u.append('p', 'iniSesion');
+      u.append('e', email);
+      u.append('pass', pass);
+      const resp = await axios.post("http://localhost/Residencia/api/index.php", u, 
+      {headers: { 'Content-Type': 'multipart/form-data' }});
+      console.log(resp)
       if (resp.data === "Error") {
         setError(true);
         setTimeout(()=>{setError(false)},3000);
@@ -56,7 +55,7 @@ export const Login = ({ history }) => {
     });
     history.replace(`/${data.rol}`);
     const date = new Date();
-    const date2 = new Date(date.getTime() + 60000);
+    const date2 = new Date(date.getTime() + 1800000);
     localStorage.setItem("dateSesion", date2);
   };
 

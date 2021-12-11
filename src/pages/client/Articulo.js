@@ -1,23 +1,26 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react/cjs/react.development";
+import { handlePost } from "../../functions/axiosPost";
 
 export const Articulo = () => {
   const { tienda, codigoProducto } = useParams();
   const [producto, setProducto] = useState([]);
 
   useEffect(()=>{
-    console.log(tienda + " " + codigoProducto);
     handleProducto(tienda, codigoProducto);
-  },[tienda, codigoProducto])
+  },[])
 
   const handleProducto = (tienda, codigoProducto) =>{
-    axios.get(`http://localhost/realityhouse/api/productos.php?t=${tienda}&p=producto&id=${codigoProducto}`)
-    .then(res => {
-      const data= res.data;
-      setProducto(data);
-    })
+    const f = new FormData();
+    f.append('p', 'getProductForId');
+    f.append('s', tienda);
+    f.append('id', codigoProducto);
+    const resp = handlePost(f);
+    resp.then((res) => {
+      const data = res.data;
+      setProducto(data[0]);
+    });
   }
 
   if (!producto) {

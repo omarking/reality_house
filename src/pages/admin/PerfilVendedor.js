@@ -44,7 +44,7 @@ export const PerfilVendedor = () => {
                   value=""
                   id="defaultCheck1"
                 />
-                <label className="form-check-label" for="defaultCheck1">
+                <label className="form-check-label" htmlFor="defaultCheck1">
                   Si
                 </label>
               </div>
@@ -56,7 +56,7 @@ export const PerfilVendedor = () => {
                   id="defaultCheck2"
                   disabled
                 />
-                <label className="form-check-label" for="defaultCheck2">
+                <label className="form-check-label" htmlFor="defaultCheck2">
                   No
                 </label>
               </div>

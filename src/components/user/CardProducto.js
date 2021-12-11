@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export const CardProducto = ({codigoProducto, nombreProducto, precio, categoria, tienda}) => {
+export const CardProducto = ({codigoProducto, nombreProducto, precio, categoria}) => {
   
   return (
     <div

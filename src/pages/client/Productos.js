@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { CardProductos } from "../../components/general/CardProductos";
@@ -104,6 +103,7 @@ export const Productos = () => {
             return (
               <CardProductos
                 key={x.codigoProducto}
+                urlImg={x.imgPrincipal}
                 codigoProducto={x.codigoProducto}
                 nombreProducto={x.nombreProducto}
                 precio={x.precio}

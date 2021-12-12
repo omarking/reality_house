@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CardProductos } from "../../components/general/CardProductos";
 import { CategoryBar } from "../../components/general/CategoryBar";
@@ -60,15 +59,12 @@ export const Index = () => {
 
       <div className="row justify-content-center mx-auto mt-4">
         {/* Productos */}
-        { !productos ? (
-          <div className="spinner-border text-secondary" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        ) : (
+        { productos && (
           productos.map((x) => {
             return (
               <CardProductos
                 key={x.codigoProducto}
+                urlImg={x.imgPrincipal}
                 codigoProducto={x.codigoProducto}
                 nombreProducto={x.nombreProducto}
                 precio={x.precio}

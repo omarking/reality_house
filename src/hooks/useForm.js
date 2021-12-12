@@ -10,5 +10,12 @@ export const useForm = ({initialState ={}}) => {
         })
     }
 
-    return [state, handleInputChange];
+    const handleInputFile = ({target}) => {
+        setState({
+            ...state,
+            [target.name]: target.files[0]
+        })
+    }
+
+    return [state, handleInputChange, handleInputFile];
 }

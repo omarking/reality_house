@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const CardProductos = ({/* urlImg, */ codigoProducto, nombreProducto, precio, categoria, tienda}) => {
+export const CardProductos = ({ urlImg, codigoProducto, nombreProducto, precio, categoria, tienda}) => {
   return (
     <Link
       to={`/${tienda}/${codigoProducto}`}
@@ -11,7 +11,7 @@ export const CardProductos = ({/* urlImg, */ codigoProducto, nombreProducto, pre
         className="img-card"
         style={{
           backgroundImage:
-            'url("https://images.pexels.com/photos/8112950/pexels-photo-8112950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")'}}></div>
+            `url("http://localhost/Residencia/api/${urlImg}")`}}></div>
       <div className="card-body">
         <h5 className="card-title">{nombreProducto}</h5>
         <p className="card-text">${precio}</p>

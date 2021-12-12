@@ -20,22 +20,16 @@ export const CategoryBar = ({ selectCategory }) => {
   return (
     <>
       <ul className="nav justify-content-center border h-50 rounded">
-        {!categoria ? (
-          <div className="spinner-border text-secondary" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        ) : (
+        {categoria && (
           categoria.map((x) => {
             return (
               <li className="nav-item" key={x.idCategoria}>
-                <button
-                  className="nav-link btn-categorias"
+
+                <button className="nav-link btn-categorias"
                   onClick={() => {
-                    selectCategory(x.categoria);
-                  }}
-                >
-                  {x.categoria}
+                    selectCategory(x.categoria);}}> {x.categoria}
                 </button>
+                
               </li>
             );
           })

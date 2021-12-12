@@ -8,7 +8,9 @@ export const Articulo = () => {
   const [producto, setProducto] = useState([]);
 
   useEffect(()=>{
+    window.scrollTo(0,0);
     handleProducto(tienda, codigoProducto);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleProducto = (tienda, codigoProducto) =>{
@@ -19,6 +21,7 @@ export const Articulo = () => {
     const resp = handlePost(f);
     resp.then((res) => {
       const data = res.data;
+      console.log(res.data)
       setProducto(data[0]);
     });
   }

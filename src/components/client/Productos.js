@@ -22,7 +22,7 @@ export const Productos = () => {
     t.append('p', 'getProductsFromStore');
     t.append('w', e.target.value);
     const resp = handlePost(t);
-    resp.then(res => { setProductos(res.data)})
+    resp.then(res => { setProductos(res.data) })
   };
 
   useEffect(() => {
@@ -55,6 +55,7 @@ export const Productos = () => {
           </div>
           {tienda === "" ? <h3>Seleccione tienda</h3> : <h3>{tienda}</h3>}
         </div>
+        
         <div className="row justify-content-center m-auto">
           {
             productos &&
@@ -63,6 +64,7 @@ export const Productos = () => {
                 return (
                   <CardProductos
                     key={x.codigoProducto}
+                    urlImg={x.imgPrincipal}
                     codigoProducto={x.codigoProducto}
                     nombreProducto={x.nombreProducto}
                     precio={x.precio}
@@ -75,22 +77,12 @@ export const Productos = () => {
           }
         </div>
         <div className="row justify-content-center">
-          {tienda === "" ? (
-            <Link
-              className="btn color-components col-md-2 col-6 row-animation"
-              to="/"
-              onClick={(e) => e.preventDefault()}
-            >
-              Ver Mas
-            </Link>
-          ) : (
-            <Link
-              className="btn color-components col-md-2 col-6 row-animation"
-              to={`/${tienda}`}
-            >
-              Ver Mas
-            </Link>
-          )}
+
+          {
+          tienda && 
+          (<Link className="btn color-components col-md-2 col-6 row-animation" to={`/${tienda}`}>Ver Mas</Link>)
+          }
+
         </div>
       </section>
     );

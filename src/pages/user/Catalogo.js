@@ -76,6 +76,7 @@ export const Catalogo = () => {
           productos.map((x) => {
             return (
               <CardProducto
+              urlImagen={x.imgPrincipal}
                 key={x.codigoProducto}
                 codigoProducto={x.codigoProducto}
                 nombreProducto={x.nombreProducto}

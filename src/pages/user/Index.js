@@ -28,6 +28,7 @@ export const Index = () => {
 
   /* Buscamos Productos por categoria */
   const selectCategory = (categoria) => {
+    console.log(categoria)
     const p = new FormData();
     p.append('p', 'allProductsC');
     p.append('c', categoria);

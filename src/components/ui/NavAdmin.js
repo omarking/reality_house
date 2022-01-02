@@ -36,7 +36,7 @@ export const NavAdmin = () => {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
             <Link className="nav-link text-light" to="/admin">
-              Inicio <span className="sr-only">(current)</span>
+              Inicio
             </Link>
           </li>
           <li className="nav-item">

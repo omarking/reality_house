@@ -1,142 +1,225 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
+import InputComponent from "../../components/general/InputComponent";
+import InputImage from "../../components/general/InputImage";
+import { handlePost } from "../../functions/axiosPost";
 
-export const Editar = () => {
-  const { codigoProducto } = useParams();
+export const Editar = ({ history }) => {
   const { user } = useContext(AuthContext);
-  const [producto, setProducto] = useState([]);
-  const [img1, setImg1] = useState(null)
-  const [img2, setImg2] = useState(null)
-  const f = new FormData();
+  const { codigoProducto } = useParams();
+  const urlServer = "http://localhost/Residencia/api/";
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    handleProducto(user.tienda, codigoProducto);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
-  const handleImg1 = (e) => {
-    setImg1(e.target.files[0])
-  }
+  /* States */
+  const [validate, setValidate] = useState(false);
+  const [category, setCategory] = useState([])
+  const [datosForm, setDatosForm] = useState({});
+  const [rutas, setRutas] = useState({});
 
-  const handleImg2 = (e) => {
-    setImg2(e.target.files[0])
-  }
 
-  const handleProducto = (tienda, codigoProducto) => {
-    axios
-      .get(
-        `http://localhost/realityhouse/api/productos.php?t=${tienda}&p=producto&id=${codigoProducto}`
-      )
-      .then((res) => {
-        const data = res.data;
-        setProducto(data);
-      });
+  const handleGetData = () => {
+    const f = new FormData();
+    f.append("p", "getProductForId");
+    f.append("s", user.tienda);
+    f.append("id", codigoProducto);
+    const resp = handlePost(f);
+    resp.then((res) => {
+      if (res.data[0] !== undefined) {
+        const data = res.data[0];
+        setDatosForm({
+          nombre: data.nombreProducto,
+          stock: data.stock,
+          precio: data.precio,
+          marca: data.nombreMarca,
+          descripcion: data.descripcionProducto,
+          categoria: data.categoria,
+          ruta1: urlServer + data.imgPrincipal,
+          ruta2: urlServer + data.img1,
+          ruta3: urlServer + data.img2,
+          ruta4: urlServer + data.img3,
+        });
+        setRutas({
+          ruta1: urlServer + data.imgPrincipal,
+          ruta2: urlServer + data.img1,
+          ruta3: urlServer + data.img2,
+          ruta4: urlServer + data.img3,
+        })
+      } else {
+        history.replace("/");
+      }
+    });
   };
 
-  const handleSubmit = (e, nombreTienda) =>{
-    e.preventDefault()
-    f.append('tienda', user.tienda)
-    f.append('img1', img1);
-    f.append('img2', img2);
-    axios.post("http://localhost/realityhouse/api/productos.php", f,
-    {headers: {
-      'Content-Type': 'multipart/form-data'
-    }}).then(res => {
-      console.log(res);
+  const handleGetCategory = () => {
+    const p = new FormData();
+    p.append("p", "query");
+    p.append("w", "category");
+    const resp = handlePost(p);
+    resp.then((res) => {
+      setCategory(res.data);
+    });
+  };
+
+  const handleInputData = ({target}) => {
+    setDatosForm({
+      ...datosForm,
+      [target.name]: target.value 
+    });
+  }
+
+  const handleInputImage = ({target}) => {
+    setDatosForm({
+      ...datosForm,
+      [target.name]: target.files[0],
+    });
+    console.log(target.files[0])
+  }
+
+  const handleImgData = (e) => {
+    const objetUrl = URL.createObjectURL(e.target.files[0]);
+    setRutas({
+      ...rutas,
+      [e.target.name]: objetUrl,
     })
   }
 
+  const handleChangeValidate = () => {
+    setValidate(true);
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      setValidate(false);
+    }, 5000);
+  };
+
+  const handleValidateForms = () => {
+    if(Object.keys(datosForm).length < 10) {
+      handleChangeValidate();
+    }else{
+      if(datosForm.nombre.length > 0 && datosForm.stock.length > 0 && datosForm.precio.length > 0 && datosForm.marca.length > 0 && datosForm.descripcion.length > 0 && datosForm.categoria.length > 0 && datosForm.ruta1 !== undefined && datosForm.ruta2 !== undefined && datosForm.ruta3 !== undefined && datosForm.ruta4 !== undefined){
+        handleSendData();
+      }else{
+        handleChangeValidate();
+      }
+    }
+  }
+
+  const HandleSubmit = (e) => {
+    e.preventDefault();
+    handleValidateForms();
+  }
+
+  const handleSendData = () => {
+    const f = new FormData();
+    f.append('p', 'updateProduct');
+    f.append('id', codigoProducto);
+    let claves = Object.keys(datosForm);
+    for(let i = 0 ; i < claves.length ; i++ ){
+      let clave = claves[i];
+      f.append(clave, datosForm[clave]);
+    }
+    const response = handlePost(f);
+    response.then( res => {
+      console.log(res);
+    });
+  }
+
+  useEffect(() => {
+    handleGetData();
+    handleGetCategory();
+  }, []);
+
   return (
     <div>
-      {producto ? (
-        <div>
-          <h2 className="w-75 mx-auto mb-4">Editar</h2>
-
-          <form className="w-75 m-auto"  method="post" enctype="multipart/form-data">
-            <div className="form-group">
-              <label className="ml-2">Nombre</label>
-              <input
-                type="text"
-                className="form-control col-md-2 col-10 ml-2"
-                value={producto.nombreProducto}
-              />
-            </div>
-            <div className="form-group">
-              <label className="ml-2">Stock</label>
-              <input
-                type="number"
-                className="form-control col-md-2 col-10 ml-2"
-                value={producto.stock}
-              />
-            </div>
-            <div className="form-group">
-              <label className="ml-2">Precio</label>
-              <input
-                type="number"
-                className="form-control col-md-2 col-10 ml-2"
-                value={producto.precio}
-              />
-            </div>
-            <div className="form-group">
-              <label className="ml-2">Categoria</label>
-              <select
-                className="form-control col-md-2 col-10 ml-2"
-                id="exampleFormControlSelect1"
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label className="ml-2">Marca</label>
-              <input
-                type="text"
-                className="form-control col-md-2 col-10 ml-2"
-                value={producto.nombreMarca}
-              />
-            </div>
-
-            <div className="input-group mb-3 col-12 justify-content-between">
-              <div className="custom-file col-2">
-                <input type="file" onChange={(e) => {handleImg1(e)}} accept="image/*" />
-               
-              </div>
-
-               <div className="custom-file col-2">
-                <input type="file" onChange={(e) => {handleImg2(e)}} accept="image/*" />
-               
-              </div>
-
-            </div>
-
-            <div className="form-group">
-              <label className="ml-2">Descripcion</label>
-              <textarea
-                className="form-control col-md-4 col-10 ml-2"
-                rows="4"
-                style={{ resize: "none" }}
-                value={producto.descripcionProducto}
-              />
-            </div>
-
-            <div className="row col-md-4 col-10">
-              <button onClick={e =>{handleSubmit(e, producto.nombreTienda)}} className="btn color-components ml-2 mr-3">
-                Agregar
-              </button>
-              <button className="btn color-components mx-3">Cancelar</button>
-            </div>
-          </form>
+      <h2 className="w-75 mx-auto mb-4">Editar Producto</h2>
+      {validate && (
+        <div className="alert alert-danger w-75 mx-auto" role="alert">
+          Rellene todos los campos
         </div>
-      ) : (
-        <div>Espere</div>
       )}
+
+      <form onSubmit={HandleSubmit} className="w-75 m-auto">
+        <div className="row my-4">
+          <InputComponent
+            nombre="nombre"
+            type="text"
+            placeHolder="Nombre Producto"
+            value={datosForm.nombre}
+            funcion={handleInputData}
+          />
+
+          <InputComponent
+            nombre="marca"
+            type="text"
+            placeHolder="Marca del producto"
+            value={datosForm.marca}
+            funcion={handleInputData}
+          />
+        </div>
+
+        <div className="row my-4">
+          <InputComponent nombre="stock" type="number" placeHolder="" value={datosForm.stock} funcion={handleInputData} />
+
+          <InputComponent nombre="precio" type="number" placeHolder="" value={datosForm.precio} funcion={handleInputData} />
+        </div>
+
+        {/* Imagenes */}
+        <div className="row justify-content-between">
+          <div className="col-12">
+            <label className="my-4">Seleccione Imagenes</label>
+          </div>
+
+          <InputImage id="file1" nombre="ruta1" url={rutas.ruta1} handleChangeUrl={handleImgData} handleValueImage={handleInputImage} />
+
+          <InputImage id="file2" nombre="ruta2" url={rutas.ruta2} handleChangeUrl={handleImgData} handleValueImage={handleInputImage} />
+
+          <InputImage id="file3" nombre="ruta3" url={rutas.ruta3} handleChangeUrl={handleImgData} handleValueImage={handleInputImage} />
+
+          <InputImage id="file4" nombre="ruta4" url={rutas.ruta4} handleChangeUrl={handleImgData} handleValueImage={handleInputImage} />
+        </div>
+
+        {/* Select Categorias */}
+        <div className="row my-4">
+          <div className="col-lg col-12-md">
+          <label className="ml-2" style={{textTransform: 'capitalize'}}> Categoria <small className="text-danger" >*</small></label>
+          <select name="categoria"
+            className="form-control col-lg col-12-md"
+            onChange={handleInputData} >
+            <option> {datosForm.categoria} </option>
+            { category &&
+              category.map((x, i) => {
+                return <option key={i}>{x.categoria}</option>;
+              })}
+          </select>
+          </div>
+        
+
+          <div className="col-lg col-12-md">
+            <label className="ml-2">
+              Descripcion <small className="text-danger">*</small>
+            </label>
+            <textarea
+              className="form-control"
+              name="descripcion"
+              rows="4"
+              style={{ resize: "none" }}
+              value={datosForm.descripcion}
+              onChange={handleInputData}
+            ></textarea>
+          </div>
+        </div>
+
+        {/* Botones */}
+        <div className="row justify-content-center my-4">
+          <input
+            type="submit"
+            className="btn color-components mx-4"
+            value="Agregar"
+          />
+          <Link to="/user/mis-productos" className="btn color-components mx-4">
+            Cancelar
+          </Link>
+        </div>
+      </form>
     </div>
   );
 };

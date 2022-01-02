@@ -89,7 +89,7 @@ export const AgregarProducto = ({history}) => {
         }
     const response = handlePost(f);
     response.then(res => {
-      if(res.data == "Ok"){
+      if(res.data === "Ok"){
         history.replace("/user/mis-productos");
       }else{
         handleChangeValidate();

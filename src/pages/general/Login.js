@@ -1,4 +1,5 @@
 import axios from "axios";
+import md5 from "md5";
 import React, { useContext } from "react";
 import { useState } from "react/cjs/react.development";
 import { AuthContext } from "../../auth/AuthContext";
@@ -30,7 +31,7 @@ export const Login = ({ history }) => {
       const u = new FormData();
       u.append('p', 'iniSesion');
       u.append('e', email);
-      u.append('pass', pass);
+      u.append('pass', md5(pass));
       const resp = await axios.post("http://localhost/Residencia/api/index.php", u, 
       {headers: { 'Content-Type': 'multipart/form-data' }});
       if (resp.data === "Error") {

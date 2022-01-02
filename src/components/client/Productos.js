@@ -22,7 +22,7 @@ export const Productos = () => {
     t.append('p', 'getProductsFromStore');
     t.append('w', e.target.value);
     const resp = handlePost(t);
-    resp.then(res => { setProductos(res.data) })
+    resp.then(res => { setProductos(res.data)})
   };
 
   useEffect(() => {

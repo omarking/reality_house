@@ -15,34 +15,10 @@ export const AdminRoute = () => {
     <div>
       <NavAdmin />
       <Switch>
-        <PrivateAdminRoute
-          exact
-          path="/admin"
-          component={Index}
-          isAuthenticated={user.logged}
-          rol={user.status}
-        />
-        <PrivateAdminRoute
-          exact
-          path="/admin/:vendedor"
-          component={PerfilVendedor}
-          isAuthenticated={user.logged}
-          rol={user.status}
-        />
-        <PrivateAdminRoute
-          exact
-          path="/admin/generador-qr"
-          component={GeneradorQr}
-          isAuthenticated={user.logged}
-          rol={user.status}
-        />
-        <PrivateAdminRoute
-          exact
-          path="/admin/registro-usuario"
-          component={RegistroUsuario}
-          isAuthenticated={user.logged}
-          rol={user.status}
-        />
+        <PrivateAdminRoute exact path="/admin" component={Index} isAuthenticated={user.logged} rol={user.status}/>
+        <PrivateAdminRoute exact path="/admin/generador-qr" component={GeneradorQr} isAuthenticated={user.logged} rol={user.status}/>
+        <PrivateAdminRoute exact path="/admin/registro-usuario" component={RegistroUsuario} isAuthenticated={user.logged} rol={user.status}/>
+        <PrivateAdminRoute exact path="/admin/:vendedor" component={PerfilVendedor} isAuthenticated={user.logged} rol={user.status}/>
         <Redirect to="/" />
       </Switch>
       <Footer />

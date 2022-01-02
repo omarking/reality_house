@@ -1,73 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import CardArtVend from "../../components/admin/CardArtVend";
 import { CategoryBar } from "../../components/general/CategoryBar";
+import { handlePost } from "../../functions/axiosPost";
 
 export const PerfilVendedor = () => {
+  const [usuario, setUsuario] = useState([]);
+  const [productos, setProductos] = useState([]);
+  const {vendedor} = useParams();
+  
+   const handleGetDataUser = () => {
+    const f = new FormData();
+    f.append('p', 'getInfoUser');
+    f.append('idUser', vendedor);
+    const resp = handlePost(f);
+    resp.then(res => {
+      setUsuario(res.data);
+    });
+  };
+
+  const handleProducts = () => {
+    const t = new FormData();
+    t.append('p', 'getProductsFromStore');
+    t.append('w', vendedor);
+    const resp = handlePost(t);
+    resp.then(res => { setProductos(res.data) })
+  };
+
+  useEffect(() => { 
+    handleGetDataUser();
+    handleProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+   },[]);
+
+
   return (
     <div>
       <div className="row mx-auto mt-3 justify-content-start">
-        <div className="col-10 col-md-6">
-          <h3>Perfil: Nombre Vendedor</h3>
-          <p>Nombre: **********</p>
-          <p>Email: email@email.com</p>
-          <p>Telefono: 00000000</p>
+        <div className="col-10 col-md-6 ml-5">
+          <h3> { usuario.nombreTienda } </h3>
+          <p>Nombre: {usuario.nombre} </p>
+          <p>Email: {usuario.emailUsuario} </p>
+          <p>Telefono: {usuario.telefonoUsuario} </p>
         </div>
       </div>
 
-      <div className="row w-75 mx-auto">
-        <CategoryBar />
+      <div className="row w-75 mx-auto justify-content-center">
+        <h2>Productos</h2>
       </div>
-      <div className="row w-100">
-        <div className="card col-10 mx-auto mt-3">
-          <div className="card-body row">
-            <div
-              className="img-card col-2"
-              style={{
-                backgroundImage:
-                  'url("https://images.pexels.com/photos/8112950/pexels-photo-8112950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")',
-              }}
-            ></div>
-            <div className="col-4">
-              <h3>Titulo Informacion</h3>
-              <p className="text-mute">Categoria</p>
-              <p>Vendedor:</p>
-              <p>
-                <strong>$112345</strong>
-              </p>
-            </div>
 
-            <div className="col-4">
-              <h5>Modelo 3D Terminado:</h5>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="defaultCheck1"
-                />
-                <label className="form-check-label" htmlFor="defaultCheck1">
-                  Si
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="defaultCheck2"
-                  disabled
-                />
-                <label className="form-check-label" htmlFor="defaultCheck2">
-                  No
-                </label>
-              </div>
-            </div>
-
-            <div className="col-2">
-            <button className="btn color-components" >Descargar QR</button>
-            </div>
-          </div>
-        </div>
+      <div className="w-100">
+        {
+          productos.map(x => {
+            return ( <CardArtVend id={x.codigoProducto} 
+              titulo={x.nombreProducto} 
+              categoria={x.categoria} 
+              marca={x.nombreMarca} 
+              precio={x.precio} 
+              estado={x.modelo3D} /> )
+          })
+        }
       </div>
+
     </div>
   );
 };

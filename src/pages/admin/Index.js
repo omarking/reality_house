@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { CardVendedor } from "../../components/admin/CardVendedor";
-import { useAxiosPost } from "../../hooks/useAxiosPost";
+import { handlePost } from "../../functions/axiosPost";
 
 export const Index = () => {
-  const urlUsuario ='http://localhost/realityhouse/api/user.php';
-  const f = new FormData();
-  f.append('p', 'dataC')
-  const {data: dataUsuario, loading: loadingUsuario} = useAxiosPost(urlUsuario, f);
-  const usuarios = !!dataUsuario && dataUsuario;
-  console.log(usuarios)
+  const [usuarios, setUsuarios] = useState([]);
+  
+  const handleGetDataUsers = () =>{
+    const f = new FormData();
+    f.append('p', 'query');
+    f.append('w', 'AllStores');
+    const resp = handlePost(f);
+    resp.then(res =>{
+      setUsuarios(res.data);
+    })
+  }
+
+  useEffect(()=>{
+    handleGetDataUsers();
+  },[]);
 
   return (
     <div>
@@ -20,19 +30,19 @@ export const Index = () => {
           placeholder="Buscar"
           className="col-2"
         />
-        <button className="btn color-components">Agregar Usuario</button>
+        <Link className="btn color-components" to="/admin/registro-usuario" >Agregar Usuario</Link>
       </div>
       <div className="row justify-content-around mx-auto mt-3" style={{maxWidth: '1440px'}}>
-        {
-          !loadingUsuario && 
-          (
-            usuarios.map((x,i) =>{
-              if(x.nombreTienda !== null){
-                return <CardVendedor key={i} nombre={x.nombreTienda} logo={x.logoTienda} membresia={x.membresia} />
-              }
-            })
-          )
-        }
+
+      {
+        usuarios && 
+        (
+          usuarios.map( (x, i) =>{
+            return <CardVendedor key={i} nombre={x.nombreTienda} logo={x.logoTienda} membresia={x.membresia} />
+          })
+        )
+      }
+  
       </div>
     </div>
   );

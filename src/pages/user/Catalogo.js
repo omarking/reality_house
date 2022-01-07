@@ -78,6 +78,7 @@ export const Catalogo = () => {
               <CardProducto
               urlImagen={x.imgPrincipal}
                 key={x.codigoProducto}
+                tienda={tienda}
                 codigoProducto={x.codigoProducto}
                 nombreProducto={x.nombreProducto}
                 precio={x.precio}

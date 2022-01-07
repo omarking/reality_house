@@ -5,7 +5,6 @@ import InputComponent from "../../components/general/InputComponent";
 import InputImage from "../../components/general/InputImage";
 import SelectComponent from "../../components/general/SelectComponent";
 import { handlePost } from "../../functions/axiosPost";
-import { useForm } from "../../hooks/useForm";
 
 export const AgregarProducto = ({history}) => {
   const { user } = useContext(AuthContext);
@@ -21,7 +20,7 @@ export const AgregarProducto = ({history}) => {
     ruta4:
       "https://cdn.pixabay.com/photo/2016/04/12/22/35/watercolour-1325656_960_720.jpg",
   });
-  const [formValues, handleInputChange, handleInputFile] = useForm({
+  const [dataFormulario, setDataFormulario] = useState({
     nombre: "",
     stock: "",
     precio: "",
@@ -33,7 +32,6 @@ export const AgregarProducto = ({history}) => {
     ruta3: "",
     ruta4: "",
   });
-  const {nombre, stock, precio, marca, descripcion, categoria, ruta1, ruta2, ruta3, ruta4} = formValues;
 
   const handleGetCategory = () => {
     const p = new FormData();
@@ -59,15 +57,21 @@ export const AgregarProducto = ({history}) => {
   };
 
   const handleValidateForms = () => {
-    if (Object.keys(formValues).length < 10) {
-      handleChangeValidate();
-    } else {
-      if(nombre.length > 0 && stock.length > 0 && precio.length > 0 && marca.length > 0 && descripcion.length > 0 && categoria.length > 0 && ruta1 !== undefined && ruta2 !== undefined && ruta3 !== undefined && ruta4 !== undefined){
-        handleSendData();
+    const values = Object.keys(dataFormulario);
+    let count = 0;
+    values.forEach( x => {
+      if(dataFormulario[x]===""){
+        console.log("Campo vacio");
       }else{
-        handleChangeValidate();
+        count++;
       }
+    });
+    if(count === 10){
+      handleSendData();
+    }else{
+      handleChangeValidate();
     }
+
   };
 
   const handleChangeValidate = () => {
@@ -82,18 +86,33 @@ export const AgregarProducto = ({history}) => {
     const f = new FormData();
     f.append( 'p', 'saveProduct' );
     f.append( 'u', user.tienda);
-    let claves = Object.keys(formValues);
+    let claves = Object.keys(dataFormulario);
         for(let i = 0; i< claves.length ; i++){
           let clave = claves[i];
-          f.append(clave, formValues[clave]);
+          f.append(clave, dataFormulario[clave]);
         }
     const response = handlePost(f);
     response.then(res => {
+      console.log(res.data)
       if(res.data === "Ok"){
         history.replace("/user/mis-productos");
       }else{
         handleChangeValidate();
       }
+    });
+  };
+
+  const handleInputChange = ({target}) => {
+    setDataFormulario({
+      ...dataFormulario,
+      [target.name]: target.value
+    });
+  };
+
+  const handleInputFile = ({target}) => {
+    setDataFormulario({
+      ...dataFormulario,
+      [target.name]: target.files[0]
     });
   };
 
@@ -116,7 +135,7 @@ export const AgregarProducto = ({history}) => {
           <InputComponent
             nombre="nombre"
             type="text"
-            value={nombre}
+            value={dataFormulario.nombre}
             funcion={handleInputChange}
             placeHolder="Nombre Producto"
           />
@@ -124,7 +143,7 @@ export const AgregarProducto = ({history}) => {
           <InputComponent
             nombre="marca"
             type="text"
-            value={marca}
+            value={dataFormulario.marca}
             funcion={handleInputChange}
             placeHolder="Marca del producto"
           />
@@ -134,7 +153,7 @@ export const AgregarProducto = ({history}) => {
           <InputComponent
             nombre="stock"
             type="number"
-            value={stock}
+            value={dataFormulario.stock}
             funcion={handleInputChange}
             placeHolder=""
           />
@@ -142,7 +161,7 @@ export const AgregarProducto = ({history}) => {
           <InputComponent
             nombre="precio"
             type="number"
-            value={precio}
+            value={dataFormulario.precio}
             funcion={handleInputChange}
             placeHolder=""
           />
@@ -202,7 +221,7 @@ export const AgregarProducto = ({history}) => {
             <textarea
               className="form-control"
               name="descripcion"
-              value={descripcion || ""}
+              value={dataFormulario.descripcion}
               onChange={handleInputChange}
               rows="4"
               style={{ resize: "none" }}

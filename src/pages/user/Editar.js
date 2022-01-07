@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import swal from "sweetalert";
 import { AuthContext } from "../../auth/AuthContext";
 import InputComponent from "../../components/general/InputComponent";
 import InputImage from "../../components/general/InputImage";
@@ -15,7 +16,7 @@ export const Editar = ({ history }) => {
   const [category, setCategory] = useState([])
   const [datosForm, setDatosForm] = useState({});
   const [rutas, setRutas] = useState({});
-
+  const [nombreProducto, setNombreProducto] = useState("");
 
   const handleGetData = () => {
     const f = new FormData();
@@ -38,6 +39,7 @@ export const Editar = ({ history }) => {
           ruta3: urlServer + data.img2,
           ruta4: urlServer + data.img3,
         });
+        setNombreProducto(data.nombreProducto);
         setRutas({
           ruta1: urlServer + data.imgPrincipal,
           ruta2: urlServer + data.img1,
@@ -72,7 +74,6 @@ export const Editar = ({ history }) => {
       ...datosForm,
       [target.name]: target.files[0],
     });
-    console.log(target.files[0])
   }
 
   const handleImgData = (e) => {
@@ -112,6 +113,8 @@ export const Editar = ({ history }) => {
     const f = new FormData();
     f.append('p', 'updateProduct');
     f.append('id', codigoProducto);
+    f.append('tienda', user.tienda);
+    f.append('nombreActual', nombreProducto);
     let claves = Object.keys(datosForm);
     for(let i = 0 ; i < claves.length ; i++ ){
       let clave = claves[i];
@@ -119,7 +122,15 @@ export const Editar = ({ history }) => {
     }
     const response = handlePost(f);
     response.then( res => {
-      console.log(res);
+      if(res.data){
+        history.replace('/user/mis-productos')
+      }else{
+        swal({
+          title: "Error",
+          text: "Ha ocurrido un error, intentelo de nuevo",
+          button: "Aceptar"
+        });
+      }
     });
   }
 

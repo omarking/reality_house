@@ -52,7 +52,9 @@ export const PerfilVendedor = () => {
       <div className="w-100">
         {
           productos.map(x => {
-            return ( <CardArtVend id={x.codigoProducto} 
+            return ( <CardArtVend 
+              key={x.codigoProducto}
+              id={x.codigoProducto} 
               titulo={x.nombreProducto} 
               categoria={x.categoria} 
               marca={x.nombreMarca} 

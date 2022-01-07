@@ -1,7 +1,14 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 
 const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado,}) => {
-  console.log(typeof estado);
+  const {vendedor} = useParams();
+  const codigoProducto = id;
+
+  const handleChangeStatusModel = () => {
+    console.log("Listo")
+  }
+  
   return (
     <div className="row w-75 mx-auto my-2 border rounded ">
       <div
@@ -25,29 +32,37 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
       <div className="col-12 col-md-3 d-flex justify-content-center align-items-center flex-wrap">
         <h4 className="col-12 text-center"> Estado del modelo 3D</h4>
 
-        {estado === "1" ? (
-          <fieldset className="col-10 d-flex justify-content-center align-items-center flex-wrap">
-            <label className="text-center col-12 col-lg-6">
-              <input type="radio" name={id} checked /> Terminado
-            </label>
-            <label className="text-center col-12 col-lg-6">
-              <input type="radio" name={id} /> Pendiente
-            </label>
-          </fieldset>
-        ) : (
-          <fieldset className="col-10 d-flex justify-content-center align-items-center flex-wrap">
-            <label className="text-center col-12 col-lg-6">
-              <input type="radio" name={id} /> Terminado
-            </label>
-            <label className="text-center col-12 col-lg-6">
-              <input type="radio" name={id} checked /> Pendiente
-            </label>
-          </fieldset>
-        )}
+        <div className="col-10 d-flex justify-content-center align-items-center flex-wrap">
+          <div className="col-12 text-center" >
+          <input
+              type="checkbox"
+              className="form-check-input"
+              name="Free"
+              checked={true}
+              onChange={handleChangeStatusModel}
+            />
+            <label className="form-check-label mr-5">Terminado</label>
+          </div>
+
+          <div className="col-12 text-center" >
+          <input
+              type="checkbox"
+              className="form-check-input"
+              name="Free"
+              checked={false}
+              onChange={handleChangeStatusModel}
+            />
+            <label className="form-check-label mr-5">Pendiente</label>
+          </div>
+            
+          </div>
+
+
       </div>
 
-      <div className="col-12 col-md-3 d-flex justify-content-center align-items-center my-2">
-        <button className="btn color-components">Descargar-QR</button>
+      <div className="col-12 col-md-3 d-flex justify-content-center align-items-center my-2 flex-wrap">
+        <button className="btn color-components m-5 col-10 col-md-6">Descargar-QR</button>
+        <Link to={`${vendedor}/${codigoProducto}/agregar-qr`} className="btn color-components m-5 col-10 col-md-6">Agregar-QR</Link>
       </div>
     </div>
   );

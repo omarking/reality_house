@@ -142,7 +142,7 @@ nav {
   width: 130px;
   border-radius: 15px;
   border: 1px solid #efefef;
-  background-size: 100%;
+  background-size: auto 100%;
   background-position: center ;
   /* position: absolute; */
   display: flex;

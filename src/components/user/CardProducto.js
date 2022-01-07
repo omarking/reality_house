@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { handlePost } from "../../functions/axiosPost";
 
-export const CardProducto = ({ urlImagen, codigoProducto, nombreProducto, precio, categoria}) => {
+export const CardProducto = ({ urlImagen, codigoProducto, nombreProducto, precio, categoria, tienda}) => {
   const history = useHistory();
   const handleDelete = () =>{
     swal({
@@ -39,7 +39,7 @@ export const CardProducto = ({ urlImagen, codigoProducto, nombreProducto, precio
       className="card col-10 col-md-3 mx-auto mx-md-2 mb-4"
       style={{ textDecoration: "none", color: "#000" }}>
       <Link
-      to="/tienda/producto"
+      to={`/${tienda}/${codigoProducto}`}
         className="img-card"
         style={{
           backgroundImage:

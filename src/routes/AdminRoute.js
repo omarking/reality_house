@@ -7,7 +7,7 @@ import { AgregarQR } from "../pages/admin/AgregarQR";
 import { GeneradorQr } from "../pages/admin/GeneradorQr";
 import { Index } from "../pages/admin/Index";
 import { PerfilVendedor } from "../pages/admin/PerfilVendedor";
-import { RegistroUsuario } from "../pages/admin/RegistroUsuario";
+import { Registro } from "../pages/admin/RegistroUsuario";
 import { PrivateAdminRoute } from "./PrivateAdminRoute";
 
 export const AdminRoute = () => {
@@ -18,7 +18,7 @@ export const AdminRoute = () => {
       <Switch>
         <PrivateAdminRoute exact path="/admin" component={Index} isAuthenticated={user.logged} rol={user.status}/>
         <PrivateAdminRoute exact path="/admin/generador-qr" component={GeneradorQr} isAuthenticated={user.logged} rol={user.status}/>
-        <PrivateAdminRoute exact path="/admin/registro-usuario" component={RegistroUsuario} isAuthenticated={user.logged} rol={user.status}/>
+        <PrivateAdminRoute exact path="/admin/registro/:usuario" component={Registro} isAuthenticated={user.logged} rol={user.status}/>
         <PrivateAdminRoute exact path="/admin/:vendedor/:codigoProducto/agregar-qr" component={AgregarQR} isAuthenticated={user.logged} rol={user.status} />
         <PrivateAdminRoute exact path="/admin/:vendedor" component={PerfilVendedor} isAuthenticated={user.logged} rol={user.status}/>
         <Redirect to="/" />

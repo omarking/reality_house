@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { CardVendedor } from "../../components/admin/CardVendedor";
 import { handlePost } from "../../functions/axiosPost";
 
-export const Index = () => {
+export const Index = ({history}) => {
   const [usuarios, setUsuarios] = useState([]);
   
   const handleGetDataUsers = () =>{
@@ -15,6 +14,17 @@ export const Index = () => {
       setUsuarios(res.data);
     })
   }
+
+  const handleSelectReg = ({target}) => {
+    const rol = target.value;
+    if(rol === 'Administrador'){
+      history.replace('/admin/registro/admin');
+    }
+    if(rol === 'Usuario'){
+      history.replace('/admin/registro/user');
+    }
+
+  };
 
   useEffect(()=>{
     handleGetDataUsers();
@@ -30,7 +40,11 @@ export const Index = () => {
           placeholder="Buscar"
           className="col-2"
         />
-        <Link className="btn color-components" to="/admin/registro-usuario" >Agregar Usuario</Link>
+        <select className="btn color-components" onChange={handleSelectReg}>
+    <option>Registrar Usuario</option>
+    <option>Administrador</option>
+    <option>Usuario</option>
+  </select>
       </div>
       <div className="row justify-content-around mx-auto mt-3" style={{maxWidth: '1440px'}}>
 

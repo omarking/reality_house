@@ -1,13 +1,36 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react/cjs/react.development";
+import { handlePost } from "../../functions/axiosPost";
 
-const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado,}) => {
+const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado, codigoQR}) => {
   const {vendedor} = useParams();
   const codigoProducto = id;
+  const servidor = "http://localhost/Residencia/api/";
 
-  const handleChangeStatusModel = () => {
-    console.log("Listo")
+  /* states */
+  const [statusModel, setStatusModel] = useState((estado === "1") ? true : false);
+
+  const handleChangeStatusModel = ({target}) => {
+    if(target.name === 'terminado'){
+      setStatusModel(true);
+      handleStatus(1);
+    }else if(target.name === 'pendiente'){
+      setStatusModel(false);
+      handleStatus(0)
+    }
   }
+
+  const handleStatus = (estado) => {
+    const f = new FormData();
+    f.append('p', 'changeStatusModel');
+    f.append('idProducto', codigoProducto);
+    f.append('estado', estado);
+    const resp = handlePost(f);
+    resp.then(res => {
+      console.log(res.data);
+    });
+  };
   
   return (
     <div className="row w-75 mx-auto my-2 border rounded ">
@@ -15,7 +38,7 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
         className="col-12 col-md-3 img-card"
         style={{
           backgroundImage:
-            'url("https://images.pexels.com/photos/8112950/pexels-photo-8112950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")',
+            `url("${servidor}${imgPrincipal}")`,
         }}
       ></div>
 
@@ -37,8 +60,8 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
           <input
               type="checkbox"
               className="form-check-input"
-              name="Free"
-              checked={true}
+              name="terminado"
+              checked={statusModel}
               onChange={handleChangeStatusModel}
             />
             <label className="form-check-label mr-5">Terminado</label>
@@ -48,8 +71,8 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
           <input
               type="checkbox"
               className="form-check-input"
-              name="Free"
-              checked={false}
+              name="pendiente"
+              checked={!statusModel}
               onChange={handleChangeStatusModel}
             />
             <label className="form-check-label mr-5">Pendiente</label>
@@ -61,7 +84,14 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
       </div>
 
       <div className="col-12 col-md-3 d-flex justify-content-center align-items-center my-2 flex-wrap">
-        <button className="btn color-components m-5 col-10 col-md-6">Descargar-QR</button>
+        {codigoQR ?
+          (
+            <a href={`${servidor}${codigoQR}`} download="codeQR.png" className="btn color-components m-5 col-10 col-md-6" target="_blank" >Descargar-QR</a>
+          )  :
+          (
+            <button className="btn color-components m-5 col-10 col-md-6 disabled" disabled>Descargar-QR</button>
+          )
+      }
         <Link to={`${vendedor}/${codigoProducto}/agregar-qr`} className="btn color-components m-5 col-10 col-md-6">Agregar-QR</Link>
       </div>
     </div>

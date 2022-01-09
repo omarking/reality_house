@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CardArtVend from "../../components/admin/CardArtVend";
-import { CategoryBar } from "../../components/general/CategoryBar";
 import { handlePost } from "../../functions/axiosPost";
 
 export const PerfilVendedor = () => {
@@ -59,7 +58,9 @@ export const PerfilVendedor = () => {
               categoria={x.categoria} 
               marca={x.nombreMarca} 
               precio={x.precio} 
-              estado={x.modelo3D} /> )
+              estado={x.modelo3D}
+              imgPrincipal={x.imgPrincipal}
+              codigoQR={x.imagenQR} /> )
           })
         }
       </div>

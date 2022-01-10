@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react/cjs/react.development";
+import { Carousel } from "../../components/general/Carousel";
 import { handlePost } from "../../functions/axiosPost";
 
 export const Articulo = () => {
   const { tienda, codigoProducto } = useParams();
   const [producto, setProducto] = useState([]);
+  const [images, setImages] = useState();
 
   useEffect(()=>{
     window.scrollTo(0,0);
@@ -20,9 +22,15 @@ export const Articulo = () => {
     f.append('id', codigoProducto);
     const resp = handlePost(f);
     resp.then((res) => {
-      const data = res.data;
-      console.log(res.data)
-      setProducto(data[0]);
+      const data = res.data[0];
+      setProducto(data);
+      setImages({
+        img1: data.imgPrincipal,
+        img2: data.img1,
+        img3: data.img2,
+        img4: data.img3,
+        img5: data.imagenQR,
+      });
     });
   }
 
@@ -32,45 +40,13 @@ export const Articulo = () => {
     return (
       <div className="row w-100 h-auto justify-content-center mt-4">
         {/* Carousel */}
-        <div className="h-auto col-10 col-md-5 mx-2">
-          <div
-            className="mx-auto mt-4 rounded img-carousel"
-            style={{
-              backgroundImage:
-                'url("https://images.pexels.com/photos/8112950/pexels-photo-8112950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")',
-            }}
-          ></div>
-          <div className="h-25 mx-auto mt-2 rounded row justify-content-between col-9">
-            <div
-              className="border img-select-carousel rounded"
-              style={{
-                backgroundImage:
-                  'url("https://images.pexels.com/photos/8112950/pexels-photo-8112950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")',
-              }}
-            ></div>
-            <div
-              className="border img-select-carousel rounded"
-              style={{
-                backgroundImage:
-                  'url("https://images.pexels.com/photos/8112950/pexels-photo-8112950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")',
-              }}
-            ></div>
-            <div
-              className="border img-select-carousel rounded"
-              style={{
-                backgroundImage:
-                  'url("https://images.pexels.com/photos/8112950/pexels-photo-8112950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")',
-              }}
-            ></div>
-            <div
-              className="border img-select-carousel rounded"
-              style={{
-                backgroundImage:
-                  'url("https://images.pexels.com/photos/8112950/pexels-photo-8112950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940")',
-              }}
-            ></div>
-          </div>
-        </div>
+        {
+          images &&
+          (
+            <Carousel
+        imagenes={images} />
+          )
+        }
 
         {/* Info Producto */}
         <div className="col-10 col-md-5 mx-2">

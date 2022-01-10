@@ -1,10 +1,13 @@
+import md5 from "md5";
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import swal from "sweetalert";
 import InputComponent from "../../components/general/InputComponent";
 import { handlePost } from "../../functions/axiosPost";
 
 export const RegAdmin = () => {
+  const history = useHistory();
   const [validate, setValidate] = useState(false);
   const [dataReg, setDataReg] = useState({
     nombre: "",
@@ -38,18 +41,28 @@ export const RegAdmin = () => {
   const handleSendData = () => {
     const f = new FormData();
     f.append('p', 'regAdmin');
+    let claves =  Object.keys(dataReg);
+    claves.forEach(x => {
+      if(x === 'contrasena'){
+        f.append(x, md5(dataReg[x]))
+      }else{
+        f.append(x, dataReg[x])
+      }
+    });
     const resp = handlePost(f);
     resp.then((res)=>{
-      if(res.data === true){
+      console.log(res.data)
+       if(res.data === true){
         swal({
           title: "Exito",
           text: "Usuario Guardado correctamente",
           icon: 'success'
-        })
+        });
+        history.push('/admin');
       }else{
         swal({
           title: "Error",
-          text: "Ha ocurrido un error, vuelva a intentarlo",
+          text: "Ha ocurrido un error, vuelva a intentarlo o asegurese de que el usuario no alla sido registrado anteriormente",
           icon: 'error'
         })
       }

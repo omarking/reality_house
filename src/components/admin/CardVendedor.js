@@ -54,7 +54,7 @@ import { useHistory } from "react-router-dom";
         <div
           className="img-perfil rounded-circle mx-auto"
           style={{
-            backgroundImage: `url(${logo})`,
+            backgroundImage: `url(${(logo !==   null) ? (logo) : ('./img/profile.png')})`,
           }}
         ></div>
         <div className="card-body">

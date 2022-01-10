@@ -70,13 +70,13 @@ nav {
 .img-carousel {
   width: 75%;
   height: 250px;
-  background-size: 100%;
+  background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .img-select-carousel {
-  background-size: 100%;
+  background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: center;
   width: 3rem;

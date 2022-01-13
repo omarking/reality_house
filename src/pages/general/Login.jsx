@@ -50,8 +50,8 @@ export const Login = ({ history }) => {
       type: types.login,
       payload: {
         name: data.nombre,
-        status: md5(data.rol),
-        tienda: data.nombreTienda && md5(data.nombreTienda),
+        status: data.rol,
+        tienda: data.nombreTienda,
       },
     });
     history.replace(`/${data.rol}`);

@@ -12,7 +12,7 @@ const InputImage = ({id, nombre, handleChangeUrl, handleValueImage, url}) => {
         <label
           className="label_img_select"
           htmlFor={id}
-          style={{ backgroundImage: `url(${url})` }}
+          style={{ backgroundImage: `url("${url}")` }}
         >
           Seleccione Imagen
         </label>

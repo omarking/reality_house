@@ -4,7 +4,7 @@ import { AuthContext } from "../../auth/AuthContext";
 import InputComponent from "../../components/general/InputComponent";
 import InputImage from "../../components/general/InputImage";
 import SelectComponent from "../../components/general/SelectComponent";
-import { handlePost } from "../../functions/axiosPost";
+import { handlePost, urlServer } from "../../functions/axiosPost";
 
 export const AgregarProducto = ({history}) => {
   const { user } = useContext(AuthContext);
@@ -12,13 +12,13 @@ export const AgregarProducto = ({history}) => {
   const [category, setCategory] = useState([]);
   const [ruta, setRuta] = useState({
     ruta1:
-      "https://cdn.pixabay.com/photo/2016/04/12/22/35/watercolour-1325656_960_720.jpg",
+      `${urlServer}/images/preview.png`,
     ruta2:
-      "https://cdn.pixabay.com/photo/2016/04/12/22/35/watercolour-1325656_960_720.jpg",
+    `${urlServer}/images/preview.png`,
     ruta3:
-      "https://cdn.pixabay.com/photo/2016/04/12/22/35/watercolour-1325656_960_720.jpg",
+    `${urlServer}/images/preview.png`,
     ruta4:
-      "https://cdn.pixabay.com/photo/2016/04/12/22/35/watercolour-1325656_960_720.jpg",
+    `${urlServer}/images/preview.png`,
   });
   const [dataFormulario, setDataFormulario] = useState({
     nombre: "",
@@ -93,7 +93,6 @@ export const AgregarProducto = ({history}) => {
         }
     const response = handlePost(f);
     response.then(res => {
-      console.log(res.data)
       if(res.data === "Ok"){
         history.replace("/user/mis-productos");
       }else{

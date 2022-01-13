@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { urlServer } from '../../functions/axiosPost';
 
 export const Carousel = ({imagenes}) => {
     
-    const [imgPrincipal, setImagenPrincipal] = React.useState(`${imagenes.img1}`)
-    const [img, setImg] = React.useState([`${imagenes.img1}`, `${imagenes.img2}`, `${imagenes.img3}`, `${imagenes.img4}`, `${imagenes.img5}`])
+    const [imgPrincipal, setImagenPrincipal] = React.useState('')
+    const [img, setImg] = React.useState([])
 
     const handleChangeImg = ({target}) =>{
         setImagenPrincipal(target.value)
     }
+    
+    useEffect(()=>{
+      setImagenPrincipal(`${imagenes.img1}`);
+      setImg([`${imagenes.img1}`, `${imagenes.img2}`, `${imagenes.img3}`, `${imagenes.img4}`, `${imagenes.img5}`]);
+      console.log(imagenes.img5)
+    },[imagenes]);
 
     return (
         <div className="h-auto col-10 col-md-5 mx-2">

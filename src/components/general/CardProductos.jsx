@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { urlServer } from "../../functions/axiosPost";
 
 export const CardProductos = ({ urlImg, codigoProducto, nombreProducto, precio, categoria, tienda}) => {
-  console.log(`${urlServer}${urlImg}`);
   return (
     <Link
       to={`/${tienda}/${codigoProducto}`}

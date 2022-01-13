@@ -6,6 +6,7 @@ import { types } from '../../types/types';
 export const NavBar = () => {
   const history = useHistory();
   const {user:{logged}, dispatch} = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
 
   const handleLogout = () => {
     dispatch({
@@ -13,6 +14,10 @@ export const NavBar = () => {
     })
     history.replace("/")
     localStorage.removeItem('dateSesion');
+  }
+
+  const handleRedirect = () => {
+    history.push(`/${user.status}`)
   }
 
 
@@ -62,9 +67,13 @@ export const NavBar = () => {
        {
          logged ?
          (
-          <button className="btn navbar-text text-light"
+          <div className='d-flex'>
+            <button className="btn navbar-text text-light" onClick={handleRedirect} ><strong>Perfil</strong></button>
+            <button className="btn navbar-text text-light"
           onClick={()=>handleLogout()}
           >Cerrar Sesion</button>
+          </div>
+          
          )
          :
          (

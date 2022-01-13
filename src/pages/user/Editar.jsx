@@ -46,7 +46,7 @@ export const Editar = ({ history }) => {
           ruta4: urlServer + data.img3,
         })
       } else {
-        history.replace("/");
+        history.push  ("/");
       }
     });
   };

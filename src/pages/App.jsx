@@ -5,14 +5,14 @@ import { AppRoute } from "../routes/AppRoute";
 import { types } from "../types/types";
 
 const init = () => {
-  return JSON.parse(sessionStorage.getItem("user")) || { logged: false };
+  return JSON.parse(localStorage.getItem("user")) || { logged: false };
 };
 
 export const App = () => {
   const [user, dispatch] = useReducer(authReducer, {}, init);
 
    useEffect(() => {
-    sessionStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     const time = setInterval(()=> handlelogoutTime(), 6000)
     return () => {
         clearInterval(time)

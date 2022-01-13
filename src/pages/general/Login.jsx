@@ -1,6 +1,5 @@
 import md5 from "md5";
 import React, { useContext } from "react";
-import { useState } from "react/cjs/react.development";
 import { AuthContext } from "../../auth/AuthContext";
 import { handlePost } from "../../functions/axiosPost";
 import { types } from "../../types/types";
@@ -51,8 +50,8 @@ export const Login = ({ history }) => {
       type: types.login,
       payload: {
         name: data.nombre,
-        status: data.rol,
-        tienda: data.nombreTienda,
+        status: md5(data.rol),
+        tienda: data.nombreTienda && md5(data.nombreTienda),
       },
     });
     history.replace(`/${data.rol}`);

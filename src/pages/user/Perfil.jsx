@@ -52,7 +52,7 @@ export const Perfil = () => {
     f.append('pass', password);
     const resp = handlePost(f);
     resp.then(res =>{
-      if(res.data === false){
+       if(res.data !== false){
         swal({
           title: "Listo",
           text: "Contrasena cambiada correctamente",
@@ -69,15 +69,12 @@ export const Perfil = () => {
   }
 
   const handleValidatePass = (password) => {
-    console.log(password)
-    console.log(usuario.emailUsuario)
     const f = new FormData();
     f.append('p', 'iniSesion');
     f.append('e', usuario.emailUsuario);
     f.append('pass', password);
     const resp = handlePost(f);
     resp.then(res => {
-      console.log(res.data)
       if(res.data === "Error"){
         swal({
           title: "Error",

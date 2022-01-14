@@ -13,7 +13,6 @@ export const Carousel = ({imagenes}) => {
     useEffect(()=>{
       setImagenPrincipal(`${imagenes.img1}`);
       setImg([`${imagenes.img1}`, `${imagenes.img2}`, `${imagenes.img3}`, `${imagenes.img4}`, `${imagenes.img5}`]);
-      console.log(imagenes.img5)
     },[imagenes]);
 
     return (

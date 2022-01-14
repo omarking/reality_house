@@ -45,6 +45,7 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
 
   useEffect(() => {
     handleCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

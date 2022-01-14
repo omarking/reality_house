@@ -83,7 +83,6 @@ export const Catalogo = () => {
                 nombreProducto={x.nombreProducto}
                 precio={x.precio}
                 categoria={x.categoria}
-                tienda={tienda}
               />
             );
           })

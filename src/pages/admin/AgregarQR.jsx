@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
@@ -69,6 +69,7 @@ export const AgregarQR = () => {
 
   useEffect(() => {
     handleGetData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (producto) {

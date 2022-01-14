@@ -1,5 +1,6 @@
 import md5 from "md5";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
 import { handlePost } from "../../functions/axiosPost";
 import { types } from "../../types/types";
@@ -110,9 +111,10 @@ export const Login = ({ history }) => {
               value={pass}
               onChange={handlePassword}
             />
-            <a className="col-6" href="#inicio">
+
+            <Link className="col-6" to="/login/recuperar">
               <small>Ha olvidado su contraseña?</small>
-              <br/>
+              </Link>
               {error && (
               <small
                 className="text-danger col-8"
@@ -120,7 +122,7 @@ export const Login = ({ history }) => {
                 *Correo o contrasena incorrectos, verifique de nuevo.
               </small>
             )}
-            </a>
+
           </div>
 
           <input

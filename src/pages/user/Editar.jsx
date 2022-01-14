@@ -136,6 +136,7 @@ export const Editar = ({ history }) => {
   useEffect(() => {
     handleGetData();
     handleGetCategory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

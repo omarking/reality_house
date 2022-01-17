@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CardArtVend from "../../components/admin/CardArtVend";
+import { CardProductos } from "../../components/general/CardProductos";
 import { handlePost } from "../../functions/axiosPost";
 
 export const PerfilVendedor = () => {
@@ -48,9 +49,22 @@ export const PerfilVendedor = () => {
         <h2>Productos</h2>
       </div>
 
-      <div className="w-100">
+      <div className="w-100 d-flex flex-wrap justify-content-center">
         {
-          productos.map(x => {
+          (usuario.membresia === 'FREE') ?
+          (
+            productos.map( x => {
+              return ( <CardProductos 
+                urlImg={x.imgPrincipal} 
+                codigoProducto={x.codigoProducto} 
+                nombreProducto={x.nombreProducto} 
+                precio={x.precio} 
+                categoria={x.categoria} 
+                tienda={usuario.nombreTienda} /> )
+            })
+          )
+          :
+          (productos.map(x => {
             return ( <CardArtVend 
               key={x.codigoProducto}
               id={x.codigoProducto} 
@@ -60,8 +74,10 @@ export const PerfilVendedor = () => {
               precio={x.precio} 
               estado={x.modelo3D}
               imgPrincipal={x.imgPrincipal}
-              codigoQR={x.imagenQR} /> )
-          })
+              codigoQR={x.imagenQR}
+              tienda={usuario.nombreTienda} />
+               )
+          }))
         }
       </div>
 

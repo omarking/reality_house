@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import { handlePost, urlServer } from "../../functions/axiosPost";
 
-const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado, codigoQR}) => {
+const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado, codigoQR, tienda}) => {
   const {vendedor} = useParams();
   const codigoProducto = id;
   const tituloToltip = "Advertencia: Si descargas el QR desde este boton y aun no has agregado el codigo, se descargara un codigo que contendra el enlace del producto elegido, si ya has agregado el codigo entonces se agregara el codigo ya guardado anteriormente.";
@@ -16,14 +16,14 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
   const handleChangeStatusModel = ({target}) => {
     if(target.name === 'terminado'){
       setStatusModel(true);
-      handleStatus(1);
+      handleStatus(1, target.name);
     }else if(target.name === 'pendiente'){
       setStatusModel(false);
-      handleStatus(0)
+      handleStatus(0, target.name)
     }
   }
 
-  const handleStatus = (estado) => {
+  const handleStatus = (estado, est) => {
     const f = new FormData();
     f.append('p', 'changeStatusModel');
     f.append('idProducto', codigoProducto);
@@ -33,7 +33,7 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
       if(res.data === true){
         swal({
           title: 'Exito',
-          text: 'El modelo ha sido marcado como terminado',
+          text: `El modelo ha sido marcado como ${est}`,
           icon: 'success'
         });
       }else{
@@ -82,14 +82,14 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
   }
   
   return (
-    <div className="row w-75 mx-auto my-2 border rounded ">
-      <div
+    <div className="row w-75 mx-auto my-2 border rounded col-10">
+      <Link to={`/${tienda}/${id}`} 
         className="col-12 col-md-3 img-card"
         style={{
           backgroundImage:
             `url("${urlServer}${imgPrincipal}")`,
         }}
-      ></div>
+      ></Link>
 
       <div className="col-12 col-md-3">
         <h4 className="mt-1 mt-md-5">{titulo}</h4>
@@ -140,7 +140,7 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
         level="L"
         value={`danns.com/${vendedor}/${codigoProducto}`}
         bgColor="#ffffff"
-        fgColor="#536d19"
+        fgColor="#019BE3"
         style={{display: 'none'}}
         />
         

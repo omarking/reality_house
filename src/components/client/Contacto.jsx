@@ -48,6 +48,12 @@ export const Contacto = () => {
           icon: 'success',
           button: 'Ok',
         });
+        setDataEmail({
+          nombre: "",
+          to: "",
+          subject: "",
+          message: "",
+        })
       }else{
         swal({
           title: 'Error',

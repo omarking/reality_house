@@ -1,15 +1,14 @@
 import md5 from "md5";
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
+import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import InputComponent from "../../components/general/InputComponent";
 import { handlePost } from "../../functions/axiosPost";
 
 export const RegAdmin = () => {
   const history = useHistory();
-  const [validate, setValidate] = useState(false);
-  const [dataReg, setDataReg] = useState({
+  const [validate, setValidate] = React.useState(false);
+  const [dataReg, setDataReg] = React.useState({
     nombre: "",
     apellidoUno: "",
     apellidoDos: "",
@@ -51,8 +50,7 @@ export const RegAdmin = () => {
     });
     const resp = handlePost(f);
     resp.then((res)=>{
-      console.log(res.data)
-       if(res.data === true){
+       if(res.data === false){
         swal({
           title: "Exito",
           text: "Usuario Guardado correctamente",
@@ -140,7 +138,7 @@ export const RegAdmin = () => {
 
           <div className="col-12 my-4 d-flex justify-content-around">
             <button className="btn color-components col-4">Agregar</button>
-            <button className="btn color-components col-4">Cancelar</button>
+            <Link to="/admin" className="btn color-components col-4">Cancelar</Link>
           </div>
         </form>
   );

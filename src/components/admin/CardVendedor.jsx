@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import { handlePost } from "../../functions/axiosPost";
+import { handlePost, urlServer } from "../../functions/axiosPost";
 
 export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
   const history = useHistory();
@@ -66,7 +66,7 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
       <div
         className="img-perfil rounded-circle mx-auto"
         style={{
-          backgroundImage: `url(${logo !== null ? logo : "./img/profile.png"})`,
+          backgroundImage: `url("${logo !== null ? urlServer+logo : "./img/profile.png"}")`,
         }}
       ></div>
       <div className="card-body">

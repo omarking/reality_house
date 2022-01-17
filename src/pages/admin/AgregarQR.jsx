@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react/cjs/react.development";
 import swal from "sweetalert";
 import InputImage from "../../components/general/InputImage";
 import { handlePost, urlServer } from "../../functions/axiosPost";
@@ -13,7 +12,7 @@ export const AgregarQR = () => {
   const [producto, setProducto] = useState();
   const [imgCodigo, setImgCodigo] = useState();
   const [ruta, setRuta] = useState(
-    "https://images.pexels.com/photos/225769/pexels-photo-225769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    "./img/profile.png"
   );
 
   const handleGetData = () => {

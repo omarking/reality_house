@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { AuthContext } from "../../auth/AuthContext";
-import { handlePost } from "../../functions/axiosPost";
+import { handlePost, urlServer } from "../../functions/axiosPost";
 
 export const Perfil = () => {
   const {user} = useContext(AuthContext)
@@ -22,7 +22,7 @@ export const Perfil = () => {
   const handleShowIns = () => {
     swal({
       title: "Instrucciones",
-      text: "Estas son las instrucciones para cambiar a Premium",
+      text: "Para cambiar su suscripcion dirijase al area de contacto y envie un mensaje con el asunto,\"Quiero cambiar mi membresia\", y obtendra la informacion necesaria para hacer el cambio",
       button: "Aceptar"
     })
   }
@@ -134,7 +134,7 @@ export const Perfil = () => {
             className="img-perfil rounded"
             style={{
               backgroundImage:
-                `url("${(usuario.logoTienda === "" || usuario.logoTienda === null) ? "./img/profile.png" : usuario.logoTienda}")`,
+                `url("${(usuario.logoTienda === "" || usuario.logoTienda === null) ? "./img/profile.png" :urlServer+usuario.logoTienda}")`,
             }}
           ></div>
           <Link to="/user/editInfo" className="btn color-components">Cambiar Informacion</Link>

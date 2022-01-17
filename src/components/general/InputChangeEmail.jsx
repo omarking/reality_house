@@ -2,7 +2,6 @@ import React from 'react'
 import { useHistory } from 'react-router-dom';
 import swal from 'sweetalert';
 import { handlePost } from '../../functions/axiosPost';
-
 export const InputChangeEmail = () => {
     const history = useHistory();
     const [email, setEmail] = React.useState('');

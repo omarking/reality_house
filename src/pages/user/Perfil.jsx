@@ -1,5 +1,6 @@
 import md5 from "md5";
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { AuthContext } from "../../auth/AuthContext";
 import { handlePost } from "../../functions/axiosPost";
@@ -133,10 +134,10 @@ export const Perfil = () => {
             className="img-perfil rounded"
             style={{
               backgroundImage:
-                `url("${usuario.logoTienda}")`,
+                `url("${(usuario.logoTienda === "" || usuario.logoTienda === null) ? "./img/profile.png" : usuario.logoTienda}")`,
             }}
           ></div>
-          <button className="btn color-components">Cambiar Imagen</button>
+          <Link to="/user/editInfo" className="btn color-components">Cambiar Informacion</Link>
         </div>
       </div>
 

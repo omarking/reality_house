@@ -40,7 +40,7 @@ export const GeneradorQr = () => {
         level="L"
         value={QRText}
         bgColor="#ffffff"
-        fgColor="#536d19"
+        fgColor="#019BE3"
         />
         </div>
       </div>

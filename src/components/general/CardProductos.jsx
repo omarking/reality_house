@@ -6,7 +6,7 @@ export const CardProductos = ({ urlImg, codigoProducto, nombreProducto, precio, 
   return (
     <Link
       to={`/${tienda}/${codigoProducto}`}
-      className="card col-10 col-md-3 mx-auto mx-md-2 mb-4"
+      className="card col-10 col-md-3 mx-auto mx-md-2 mb-4 color-card"
       style={{ textDecoration: "none", color: "#000" }}>
       <div
         className="img-card"

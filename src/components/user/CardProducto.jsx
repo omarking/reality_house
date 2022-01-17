@@ -36,7 +36,7 @@ export const CardProducto = ({ urlImagen, codigoProducto, nombreProducto, precio
   
   return (
     <div
-      className="card col-10 col-md-3 mx-auto mx-md-2 mb-4"
+      className="card col-10 col-md-3 mx-auto mx-md-2 mb-4 color-card"
       style={{ textDecoration: "none", color: "#000" }}>
       <Link
       to={`/${tienda}/${codigoProducto}`}
@@ -49,8 +49,8 @@ export const CardProducto = ({ urlImagen, codigoProducto, nombreProducto, precio
         <p className="card-text">${precio}</p>
         <p className="text-muted">Categoria: {categoria}</p>
         <div className="row justify-content-around">
-            <Link to={`/user/editar/${codigoProducto}`} className="btn btn-warning row-animation"><i className="uil uil-edit-alt"></i> Editar</Link>
-            <button className="btn btn-danger row-animation" onClick={handleDelete} ><i className="uil uil-trash-alt"></i> Eliminar</button>
+            <Link to={`/user/editar/${codigoProducto}`} className="btn btn-editar row-animation"><i className="uil uil-edit-alt"></i> Editar</Link>
+            <button className="btn btn-eliminar row-animation" onClick={handleDelete} ><i className="uil uil-trash-alt"></i> Eliminar</button>
         </div>
       </div>
     </div>

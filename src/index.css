@@ -3,27 +3,32 @@
 
 /* General CSS */
 :root {
-  --principal-color: #536d19;
+  --principal-color: #004AAD;
+  --second-color: #2463B8;
+  --third-color: #019BE3;
+  --color-font: #efefef;
   --principal-font:'Lato', sans-serif;
   --font-error: 'Fredoka One', cursive;
+  --color-error: #F28D77;
+  --color-warning: #F2EB8D;
+  --color-success: #0FBFAE;
+  --color-info: #0A7AA6;
 }
 
 body{
+  font-family: var(--principal-font);
+  background-color: var(--color-font);
   font-family: var(--principal-font);
 }
 
 .color-components {
   color: #fff;
-  background-color: var(--principal-color);
+  background-color: var(--second-color);
 }
 
 .color-components:hover {
   color: #fff;
   background-color: var(--principal-color);
-}
-
-body {
-  font-family: "Lato", sans-serif;
 }
 
 /* nav style */
@@ -65,6 +70,11 @@ nav {
   text-decoration: none;
   list-style: none;
   color: #000;
+  background-color: var(--color-font);
+}
+
+.color-card{
+  background: var(--color-font);
 }
 
 /* Style Articulo */
@@ -171,7 +181,7 @@ nav {
   font-size: 250px;
   font-weight: 900;
   color:  var(--principal-color);
-  text-shadow: 0.1em 0.1em #333;
+  text-shadow: 0.1em 0.1em var(--third-color);
 }
 
 .message-error{
@@ -186,4 +196,12 @@ nav {
   .message-error{
     font-size: 15px;
   }
+}
+
+.btn-editar{
+  background: var(--color-warning);
+}
+
+.btn-eliminar{
+  background: var(--color-error);
 }

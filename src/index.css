@@ -1,13 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-
-/* body{
-  background: #cbcbcb;
-
-}*/
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
 /* General CSS */
 :root {
   --principal-color: #536d19;
+  --principal-font:'Lato', sans-serif;
+  --font-error: 'Fredoka One', cursive;
+}
+
+body{
+  font-family: var(--principal-font);
 }
 
 .color-components {
@@ -162,4 +164,26 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.text-error{
+  font-family: var(--font-error);
+  font-size: 250px;
+  font-weight: 900;
+  color:  var(--principal-color);
+  text-shadow: 0.1em 0.1em #333;
+}
+
+.message-error{
+  font-family: var(--font-error);
+  font-size: 50px;
+}
+
+@media (max-width: 380px){
+  .text-error{
+    font-size: 100px;
+  }
+  .message-error{
+    font-size: 15px;
+  }
 }

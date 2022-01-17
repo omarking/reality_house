@@ -3,61 +3,74 @@ import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import { CardProductos } from "../../components/general/CardProductos";
 import { CategoryBar } from "../../components/general/CategoryBar";
+import { NoFound } from "../../components/general/NoFound";
 import { handlePost } from "../../functions/axiosPost";
 
 export const Productos = () => {
   const history = useHistory();
   const { tienda } = useParams();
-
   const [searchText, setSearchText] = useState("");
   const [productos, setProductos] = useState([]);
-  const [store, setStore] = useState([])
+  const [store, setStore] = useState([]);
+  const [filterProduct, setFilterProduct] = useState([]);
 
   /* En este bloque llenamos la lista de tiendas */
   const handleGetDataStore = () => {
     const t = new FormData();
-    t.append('p', 'query');
-    t.append('w', 'stores');
+    t.append("p", "query");
+    t.append("w", "stores");
     const resp = handlePost(t);
-    resp.then(res => {setStore(res.data)});
-  }
+    resp.then((res) => {
+      setStore(res.data);
+    });
+  };
 
   /* Con esta funcionn traemos todos los objetos de la tienda desde el back */
-    const handleProducts = (tienda) => {
+  const handleProducts = (tienda) => {
     const t = new FormData();
-    t.append('p', 'getProductsFromStore');
-    t.append('w', tienda);
+    t.append("p", "getProductsFromStore");
+    t.append("w", tienda);
     const resp = handlePost(t);
-    resp.then(res => { setProductos(res.data)})
+    resp.then((res) => {
+      setProductos(res.data);
+      setFilterProduct(res.data);
+    });
   };
 
   /* con esta funcion traemos todos los objetos que coincidan con el texto que se busquen */
-  const changeTextSearch = (event) => {
-    setSearchText(event.target.value);
-    const t = new FormData();
-    t.append('p', 'searchProduct');
-    t.append('s', tienda);
-    t.append('w', event.target.value);
-    const resp = handlePost(t)
-    resp.then(res =>{setProductos(res.data)});
+  const changeTextSearch = ({target}) => {
+    const text = target.value;
+    setSearchText(text);
+    if( text.length > 0){
+    setProductos(
+      filterProduct.filter( x => {
+        const filtro = x.nombreProducto.toString().toLowerCase()
+        return ( filtro.indexOf(text.toString().toLowerCase()) > -1 )
+      }
+    ))
+    }else{
+      setProductos( filterProduct );
+    }
   };
 
   /* Con esta funcion redirigimos a otra tienda */
-  const redirect = (event) => {
-    console.log(event.target.value)
-    history.push(`/${event.target.value}`);
+  const redirect = ({target}) => {
+    history.push(`/${target.value}`);
   };
 
   /* Buscamos Productos por categoria */
   const selectCategory = (categoria) => {
-    const t = new FormData();
-    t.append('p', 'getProductForCategory');
-    t.append('s', tienda);
-    t.append('c', categoria);
-    const resp = handlePost(t);
-    resp.then(res => {setProductos(res.data)});
+    if( categoria !== 'Todos'){
+    setProductos(
+      filterProduct.filter( x => {
+        const filtro = x.categoria.toString().toLowerCase()
+        return ( filtro.indexOf(categoria.toString().toLowerCase()) > -1 )
+      }
+    ))
+    }else{
+      setProductos( filterProduct );
+    }
   };
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -84,7 +97,7 @@ export const Productos = () => {
           </select>
         </div>
 
-            <CategoryBar selectCategory={selectCategory} />
+        <CategoryBar selectCategory={selectCategory} />
 
         <input
           className="form-control col-2"
@@ -97,11 +110,8 @@ export const Productos = () => {
 
       <div className="row justify-content-center m-auto">
         {/* Productos */}
-        { !productos ? (
-          <div className="spinner-border text-secondary" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        ) : (
+         {(Object.keys(filterProduct).length > 0) ? 
+        (
           productos.map((x) => {
             return (
               <CardProductos
@@ -113,11 +123,14 @@ export const Productos = () => {
                 categoria={x.categoria}
                 tienda={tienda}
               />
-            );
+            )
           })
-        )}
+        )
+        :
+        (
+          <NoFound message="La tienda que busca no exite o aun no ha subido sus productos."/>
+        )} 
       </div>
-      <div className="row justify-content-center"></div>
     </div>
   );
 };

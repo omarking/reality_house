@@ -6,6 +6,8 @@ import { handlePost } from "../../functions/axiosPost";
 export const Index = () => {
   const history = useHistory();
   const [usuarios, setUsuarios] = useState([]);
+  const [search, setSearch] = useState('');
+  const [filterStores, setFilterStores] = useState([]);
   
   const handleGetDataUsers = () =>{
     const f = new FormData();
@@ -14,6 +16,7 @@ export const Index = () => {
     const resp = handlePost(f);
     resp.then(res =>{
       setUsuarios(res.data);
+      setFilterStores(res.data);
     })
   }
 
@@ -28,6 +31,21 @@ export const Index = () => {
 
   };
 
+  const handleSearchStore = ({target}) => {
+    const text = target.value;
+    setSearch(text);
+    if( text.length > 0){
+    setUsuarios(
+      filterStores.filter( x => {
+        const filtro = x.nombreTienda.toString().toLowerCase()
+        return ( filtro.indexOf(text.toString().toLowerCase()) > -1 )
+      }
+    ))
+    }else{
+      setUsuarios(filterStores);
+    } 
+  }
+
   useEffect(()=>{
     handleGetDataUsers();
   },[]);
@@ -37,8 +55,8 @@ export const Index = () => {
       <div className="w-75 mx-auto mt-3 row justify-content-between">
         <input
           type="text"
-          name=""
-          id=""
+          value={search}
+          onChange={handleSearchStore}
           placeholder="Buscar"
           className="col-2"
         />

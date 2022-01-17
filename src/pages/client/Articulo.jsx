@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { Carousel } from "../../components/general/Carousel";
+import { NoFound } from "../../components/general/NoFound";
 import { handlePost } from "../../functions/axiosPost";
 
 export const Articulo = () => {
   const { tienda, codigoProducto } = useParams();
   const [producto, setProducto] = React.useState({});
   const [images, setImages] = React.useState({});
+  const [component, setComponent] = React.useState('');
 
   useEffect(()=>{
     window.scrollTo(0,0);
@@ -22,23 +24,31 @@ export const Articulo = () => {
     const resp = handlePost(f);
     resp.then((res) => {
       const data = res.data[0];
-      setProducto(data);
-      setImages({
-        img1: data.imgPrincipal,
-        img2: data.img1,
-        img3: data.img2,
-        img4: data.img3,
-        img5: data.imagenQR,
-      });
+      if(data === undefined){
+        setComponent('error');
+      }else{
+        setComponent('producto');
+        setProducto(data);
+        setImages({
+          img1: data.imgPrincipal,
+          img2: data.img1,
+          img3: data.img2,
+          img4: data.img3,
+          img5: data.imagenQR,
+        });
+      }
     });
   };
 
-  if (!producto) {
-    return (<div>Cargando</div>);
-  } else {
-    return (
-      <div className="row w-100 h-auto justify-content-center mt-4">
-        {/* Carousel */}
+  return(
+    <>
+    {
+      (component === 'error') ?
+      (<NoFound message="Producto no encontrado" />)
+      :
+      (
+        <div className="row w-100 h-auto justify-content-center mt-4">
+
         {
           images &&
           (
@@ -47,7 +57,7 @@ export const Articulo = () => {
           )
         }
 
-        {/* Info Producto */}
+
         <div className="col-10 col-md-5 mx-2">
           <h3 className="mt-4">{producto.nombreProducto}</h3>
           <p>Marca: {producto.nombreMarca}</p>
@@ -66,7 +76,7 @@ export const Articulo = () => {
             <p>{producto.emailUsuario}</p>
           </div>
         </div>
-        {/* Descripcion Producto */}
+
         <div className="col-10  mt-5 text-justify">
           <h5>
             <strong>Descripcion:</strong>
@@ -75,6 +85,16 @@ export const Articulo = () => {
           <p></p>
         </div>
       </div>
+      )
+    }
+    </>
+  );
+
+/*   if (!producto) {
+    return (<div>Cargando</div>);
+  } else {
+    return (
+      
     );
-  };
+  }; */
 };

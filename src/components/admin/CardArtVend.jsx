@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import QRCode from "react-qr-code";
 import { Link, useParams } from "react-router-dom";
+import swal from "sweetalert";
 import { handlePost, urlServer } from "../../functions/axiosPost";
 
 const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado, codigoQR}) => {
@@ -29,7 +30,19 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
     f.append('estado', estado);
     const resp = handlePost(f);
     resp.then(res => {
-      console.log(res.data);
+      if(res.data === true){
+        swal({
+          title: 'Exito',
+          text: 'El modelo ha sido marcado como terminado',
+          icon: 'success'
+        });
+      }else{
+        swal({
+          title: 'Error',
+          text: 'Ha ocurrido un problema vuelva a intentarlo',
+          icon: 'error'
+        });
+      }
     });
   };
 

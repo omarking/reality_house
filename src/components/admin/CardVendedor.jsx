@@ -7,6 +7,7 @@ import { handlePost } from "../../functions/axiosPost";
 export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
   const history = useHistory();
   const [suscripcion, setSuscripcion] = React.useState(false);
+  const [modelo, setModelo] = React.useState({});
 
   const handleCheck = () => {
     if (membresia === "FREE") {
@@ -16,6 +17,16 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
       setSuscripcion(false);
     }
   };
+
+  const handleGetStatusModel = () => {
+    const f = new FormData();
+    f.append('p', 'getModel');
+    f.append('tienda', nombre);
+    const resp = handlePost(f);
+    resp.then(res => {
+      setModelo(res.data);
+    })
+  }
 
   const handleChangeSus = ({ target }) => {
     swal({
@@ -45,6 +56,7 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
 
   useEffect(() => {
     handleCheck();
+    handleGetStatusModel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +71,12 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
       ></div>
       <div className="card-body">
         {membresia === "PREMIUM" && (
-          <p className="card-text text-danger">Faltan Modelos 3D</p>
+          (parseInt(modelo.terminado) === parseInt(modelo.total)) ?
+          (<p className="card-text text-success">Modelos 3D Terminados</p>)
+          :
+          (<p className="card-text text-danger">Faltan Modelos 3D</p>)
+          
+          
         )}
         <h4>Suscripcion</h4>
         <div className="col-12 mb-3">

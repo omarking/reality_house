@@ -122,7 +122,7 @@ export const Perfil = () => {
           <div>
             <div className="row mx-auto mt-3 justify-content-around">
         <div className="col-10 col-md-6 m-auto">
-          <h3>Nombre: {usuario.nombre}</h3>
+          <h3>Nombre: {`${usuario.nombreUsuario+' '+usuario.apellidoUnoUsuario+' '+usuario.apellidoDosUsuario}`}</h3>
           <p>Tienda: {usuario.nombreTienda} </p>
           <p>Email: {usuario.emailUsuario} </p>
           <p>Telefono: {usuario.telefonoUsuario} </p>

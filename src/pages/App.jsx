@@ -13,7 +13,7 @@ export const App = () => {
 
    useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
-    const time = setInterval(()=> handlelogoutTime(), 6000)
+    const time = setInterval(()=> handlelogoutTime(), 1200)
     return () => {
         clearInterval(time)
     };

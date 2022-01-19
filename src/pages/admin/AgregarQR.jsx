@@ -46,14 +46,14 @@ export const AgregarQR = () => {
       f.append("codigoProducto", codigoProducto);
       const resp = handlePost(f);
       resp.then((res) => {
-        if (res.data) {
+        if (res.data === true) {
+          history.replace(`/admin/${vendedor}`);
           swal({
             title: "Exito",
             text: "El codigoQR se ha guardado correctamente",
             icon: "success",
             timer: 1000,
           });
-          history.replace(`/admin/${vendedor}`);
         }else{
           swal({
             title: "Error",
@@ -155,12 +155,12 @@ export const AgregarQR = () => {
               className="btn color-components mx-4"
               value="Agregar"
             />
-            <Link
-              to={`/admin/${vendedor}`}
+            <button
+              onClick={()=>{history.replace(`/admin/${vendedor}`)}}
               className="btn color-components mx-4"
             >
               Cancelar
-            </Link>
+            </button>
           </div>
         </form>
       </div>

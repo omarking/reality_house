@@ -51,7 +51,21 @@ export const RegUser = () => {
     });
     const resp = handlePost(f);
     resp.then((res)=>{
-       if(res.data === true){
+      const data = res.data;
+      if(data !== true){
+        swal({
+          title: "Error",
+          text: `El dato ${data} ya ha sido registrado anteriormente`,
+          icon: "error"
+        });
+      }else{
+        history.push('/admin');
+        swal({
+          title:"Usuario Registrado",
+          icon: "success"
+        });
+      }
+ /*       if(res.data === true){
         swal({
           title: "Exito",
           text: "Usuario Guardado correctamente",
@@ -64,7 +78,7 @@ export const RegUser = () => {
           text: "Ha ocurrido un error, vuelva a intentarlo o asegurese de que el usuario no alla sido registrado anteriormente",
           icon: 'error'
         })
-      }
+      } */
     });
   };
 

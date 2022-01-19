@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { handlePost, urlServer } from "../../functions/axiosPost";
 
-export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
+export const CardVendedor = ({ nombre, logo, membresia, idTienda, estado }) => {
   const history = useHistory();
   const [suscripcion, setSuscripcion] = React.useState(false);
   const [modelo, setModelo] = React.useState({});
@@ -78,7 +78,10 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
           
           
         )}
-        <h4>Suscripcion</h4>
+        {
+          estado === "1" &&
+          (<div>
+            <h4>Suscripcion</h4>
         <div className="col-12 mb-3">
           <input
             type="checkbox"
@@ -97,6 +100,8 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda }) => {
           />
           <label className="form-check-label">Premium</label>
         </div>
+          </div>)
+        }
         <Link to={`/admin/${nombre}`} className="btn color-components">
           Ver Mas
         </Link>

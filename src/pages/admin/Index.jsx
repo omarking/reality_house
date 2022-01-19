@@ -72,7 +72,7 @@ export const Index = () => {
         usuarios && 
         (
           usuarios.map( (x) =>{
-            return <CardVendedor key={x.usuario} nombre={x.nombreTienda} logo={x.logoTienda} membresia={x.membresia} idTienda={x.usuario} />
+            return <CardVendedor key={x.usuario} nombre={x.nombreTienda} logo={x.logoTienda} membresia={x.membresia} idTienda={x.usuario} estado={x.statusUsuario} />
           })
         )
       }

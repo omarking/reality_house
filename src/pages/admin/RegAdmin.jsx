@@ -50,19 +50,20 @@ export const RegAdmin = () => {
     });
     const resp = handlePost(f);
     resp.then((res)=>{
-       if(res.data === false){
+      const data = res.data;
+      console.log(res.data);
+      if(data !== true){
         swal({
-          title: "Exito",
-          text: "Usuario Guardado correctamente",
+          title: 'Error',
+          text: `El valor de ${data}, ya habia sido registrado previamente, porfavor corrijalo`,
+          icon: 'error'
+        });
+      }else{
+        history.push("/admin");
+        swal({
+          title: `Usuario guardado correctamente`,
           icon: 'success'
         });
-        history.push('/admin');
-      }else{
-        swal({
-          title: "Error",
-          text: "Ha ocurrido un error, vuelva a intentarlo o asegurese de que el usuario no alla sido registrado anteriormente",
-          icon: 'error'
-        })
       }
     });
   };

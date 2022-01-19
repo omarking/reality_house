@@ -137,7 +137,7 @@ export const Perfil = () => {
                 `url("${(usuario.logoTienda === "" || usuario.logoTienda === null) ? "./img/profile.png" :urlServer+usuario.logoTienda}")`,
             }}
           ></div>
-          <Link to="/user/editInfo" className="btn color-components">Cambiar Informacion</Link>
+          <Link to="/user/editImg" className="btn color-components">Cambiar Imagen</Link>
         </div>
       </div>
 

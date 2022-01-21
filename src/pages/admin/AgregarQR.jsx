@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import swal from "sweetalert";
 import InputImage from "../../components/general/InputImage";
 import { handlePost, urlServer } from "../../functions/axiosPost";

@@ -63,7 +63,7 @@ export const PerfilVendedor = () => {
       <div className="row mx-auto mt-3 justify-content-start">
         <div className="col-12 col-md-12">
           <h3> { usuario.nombreTienda } </h3>
-          <p>Nombre: {usuario.nombre} </p>
+          <p>Nombre: {`${usuario.nombreUsuario+" "+usuario.apellidoUnoUsuario+" "+usuario.apellidoDosUsuario}`} </p>
           <p>Email: {usuario.emailUsuario} </p>
           <p>Telefono: {usuario.telefonoUsuario} </p>
         </div>

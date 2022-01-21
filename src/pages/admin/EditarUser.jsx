@@ -77,7 +77,7 @@ export const EditarUser = () => {
       }else{
           swal({
               title: "Error",
-              title: "Ocurrio un error, vuelva a intentarlo",
+              text: "Ocurrio un error, vuelva a intentarlo",
               icon: "error"
           })
       }

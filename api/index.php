@@ -64,7 +64,7 @@ switch ($_SERVER['REQUEST_METHOD']){
                 $response = ControllerQuery::changePassword($_POST['e'], $_POST['pass']);
                 print json_encode($response);
             }else if($_POST['p'] == 'updateProduct' ){
-                $urlServer = "https://dannsan.com/api/";
+                $urlServer = "http://realityhouse.codewaymx.com/api/";
              $datos = array(
                  "id" => $_POST['id'],
                  "tienda" => $_POST['tienda'],

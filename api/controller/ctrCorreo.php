@@ -2,11 +2,14 @@
     require_once('./model/mdlCorreo.php');
 
     class ControllerCorreo{
+
+        /* Es la funcion que manda el correo del formulario de contacto */
         static public function sendMailContact($datos){
             $response = ModelCorreo::sendMailContact($datos);
             return $response;
         }
 
+        /* Es la funcion que manda el correo para recuperar contrasena */
         static public function sendRegPassword($email){
             $pass = ControllerCorreo::generatePassword(12);
             $response = ModelCorreo::sendRegPassword($email, $pass);
@@ -21,6 +24,7 @@
             }
         }
         
+        /* Es la funcion que genera la nueva contrasena*/
         static public function generatePassword($length){
             $key = "";
             $pattern = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_*/=#@?!";

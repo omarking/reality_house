@@ -1,5 +1,6 @@
 <?php
     class ModelCorreo{
+        /* Es la funcion que manda el correo del formulario de contacto */
         static public function sendMailContact($datos){
             try{
                 $to='danielsantiago@dannsan.com';
@@ -12,6 +13,7 @@
             }
         }
 
+        /* Es la funcion que cambia la contrasena */
         static public function sendRegPassword($email, $pass){
             try{
                 $newPass = md5($pass);

@@ -2,6 +2,10 @@
     require_once "model/mdlQuery.php";
 
     class ControllerQuery{
+        /* A traves de este archivo mandamos la informacion que requieren los procedimientos almacenados para
+        que las consultas funcionen correctamente, si es necesaria alguna otra accion como almacenar una imagen
+        en este archivo tambien va la logica de ese tipo de acciones */
+
         static public function getQuery($param){
             $response = ModelQuery::getQuery($param);
             return $response;

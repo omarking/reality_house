@@ -2,6 +2,8 @@
     require_once "connection.php";
 
     class ModelQuery{
+        /* Las funciones presenteas aqui llaman a los procedimientos almacenados y 
+        si tienen parametros les agrega la informacion que llevan estos */
         static public function getQuery($param){
             try{
                 $stmt = Connection::connect()->prepare('CALL get'.$param.'()');

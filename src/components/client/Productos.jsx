@@ -8,6 +8,7 @@ export const Productos = () => {
   const [productos, setProductos] = React.useState([]);
   const [datosTienda, setdatosTienda] = React.useState([])
 
+  /* Obtenemos los nombres de las tiendas registradas en el sistema */
   const handleGetDataStore = () => {
     const t = new FormData();
     t.append('p', 'query');
@@ -16,6 +17,7 @@ export const Productos = () => {
     resp.then(res => {setdatosTienda(res.data)});
   }
   
+  /* Obtenemos los productos de la tienda seleccionada */
   const handleProducts = (e) => {
     setTienda(e.target.value);
     const t = new FormData();

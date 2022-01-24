@@ -6,6 +6,8 @@ import { types } from '../../types/types';
 export const NavUser = () => {
   const history = useHistory();
   const {user, dispatch} = useContext(AuthContext);
+
+    /* Destruye las variables del usuario y el estado de login */
   const handleLogout = () => {
     dispatch({
       type: types.logout

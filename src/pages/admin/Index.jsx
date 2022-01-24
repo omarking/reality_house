@@ -9,6 +9,7 @@ export const Index = () => {
   const [search, setSearch] = useState('');
   const [filterStores, setFilterStores] = useState([]);
   
+  /* Obtenemos la informacion de las tiendas registradas en el sistema */
   const handleGetDataUsers = () =>{
     const f = new FormData();
     f.append('p', 'query');
@@ -20,6 +21,7 @@ export const Index = () => {
     })
   }
 
+  /* Redirige al registro de admin o user dependiendo de la eleccion */
   const handleSelectReg = ({target}) => {
     const rol = target.value;
     if(rol === 'Administrador'){
@@ -31,6 +33,7 @@ export const Index = () => {
 
   };
 
+  /* filtra la informacion obtenida por handleGetDataUser en busqueda de coindicencias con el campo de busqueda */
   const handleSearchStore = ({target}) => {
     const text = target.value;
     setSearch(text);

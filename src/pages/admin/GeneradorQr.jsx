@@ -4,10 +4,12 @@ import QRCode from "react-qr-code";
 export const GeneradorQr = () => {
   const [QRText, setQRText] = useState("Hello Word");
 
+  /* guarda la informacion del input */
   const handleChangeInput = ({target}) => {
     setQRText(target.value);
   }
 
+  /* convierte el SVG que podemos ver como el codigoQR como una imagen en formato png */
   const handleDownloadCode = () => {
     const svg = document.getElementById("QRCode");
     const svgData = new XMLSerializer().serializeToString(svg);

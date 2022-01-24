@@ -5,10 +5,12 @@ import swal from "sweetalert";
 import { handlePost, urlServer } from "../../functions/axiosPost";
 
 export const CardVendedor = ({ nombre, logo, membresia, idTienda, estado }) => {
+  /* states */
   const history = useHistory();
   const [suscripcion, setSuscripcion] = React.useState(false);
   const [modelo, setModelo] = React.useState({});
 
+  /* Esta funcion cambia el valor de los ckeck que muestran el estado de la suscripcion */
   const handleCheck = () => {
     if (membresia === "FREE") {
       setSuscripcion(true);
@@ -18,6 +20,7 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda, estado }) => {
     }
   };
 
+  /* con esta funcion obtenemos el estado de los modelos para poder reflejarlo en la tarjeta del usuario */
   const handleGetStatusModel = () => {
     const f = new FormData();
     f.append('p', 'getModel');
@@ -28,6 +31,7 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda, estado }) => {
     })
   }
 
+  /* Esta funcion llama a changeMembresia la cual cambia de FREE a PREMIUM segun se le asigne */
   const handleChangeSus = ({ target }) => {
     swal({
       title: "Cambio de Suscripcion:",
@@ -41,6 +45,7 @@ export const CardVendedor = ({ nombre, logo, membresia, idTienda, estado }) => {
     });
   };
 
+  /* Esta funcion manda una peticion para que se cambia la membresia del usuario */
   const handleChangeMembresia = (membresia) => {
     const f = new FormData();
     f.append("p", "changeMembresia");

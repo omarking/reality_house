@@ -19,6 +19,7 @@ export const EditarUser = () => {
     telefono: "",
   });
 
+  /* Obtenemos la informacion del usuario */
   const handleGetData = () => {
       const f = new FormData();
       f.append('p', 'getInfoUser'); 
@@ -38,6 +39,7 @@ export const EditarUser = () => {
       });
   }
 
+  /* Con esta funcion cambiamos la informacion de los inputs */
   const handleInputChange = ({ target }) => {
     setData({
       ...data,
@@ -45,11 +47,14 @@ export const EditarUser = () => {
     });
   };
 
+  /* Al hacer submit llamamos handleValidateForms */
   const handleSubmit = (e) => {
     e.preventDefault();
     handleValidateForm();
   };
 
+  /* validamos que la informacion de los inputs no venga vacio, de lo contrario mandara una SpeechRecognitionAlternative,
+  si traen informacion llamara handleSendData */
   const handleValidateForm = () => {
     if(data.nombre.length > 0 && data.apellidoUno.length > 0 && data.apellidoDos.length > 0 && data.correo.length > 0 && data.telefono.length > 0){
       handleSendData();
@@ -58,6 +63,7 @@ export const EditarUser = () => {
     }
   };
 
+  /* Manda una peticion al servidor para cambiar informacion del usuario */
   const handleSendData = () => {
     const f = new FormData();
     f.append('p', 'changeUser');

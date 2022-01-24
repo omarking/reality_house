@@ -15,6 +15,7 @@ export const PerfilVendedor = () => {
   const [productos, setProductos] = useState([]);
   const [estado, setEstado] = useState("");
   
+  /* Obtenemos la informacion del usuario */
    const handleGetDataUser = () => {
     const f = new FormData();
     f.append('p', 'getInfoUser');
@@ -26,6 +27,7 @@ export const PerfilVendedor = () => {
     });
   };
 
+  /* Obtenemos los productos del usuario */
   const handleProducts = () => {
     const t = new FormData();
     t.append('p', 'getProductsFromStore');
@@ -34,6 +36,7 @@ export const PerfilVendedor = () => {
     resp.then(res => { setProductos(res.data) })
   };
 
+  /* Suspendemos o habilitamos el estado del usuario */
   const handleDelete = (estado) => {
     const f = new FormData();
     f.append('p', 'changeStatusUser');

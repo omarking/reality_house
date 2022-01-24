@@ -9,6 +9,7 @@ export const Perfil = () => {
   const {user} = useContext(AuthContext)
   const [ usuario, setUsuario] = useState();
 
+  /* Obtenemos la informacion del usuario */
   const handleGetDataUser = () => {
     const f = new FormData();
     f.append('p', 'getInfoUser');
@@ -19,6 +20,7 @@ export const Perfil = () => {
     })
   }
 
+  /* Mostrara las instrucciones para cambiar de suscripcion */
   const handleShowIns = () => {
     swal({
       title: "Instrucciones",
@@ -27,6 +29,7 @@ export const Perfil = () => {
     })
   }
 
+  /* Iniciara el proceso de cambio de contrasena */  
   const handlePass = () =>{
     swal({
       title: 'Cambiar contrasena:',
@@ -46,6 +49,7 @@ export const Perfil = () => {
     })
   }
 
+  /* Cambiara la contrasena por la nueva */
   const handleChangePass = (password) => {
     const f = new FormData();
     f.append('p', 'changePassword');
@@ -69,6 +73,7 @@ export const Perfil = () => {
     })
   }
 
+  /* Validara que la contrasena sea correcta */
   const handleValidatePass = (password) => {
     const f = new FormData();
     f.append('p', 'iniSesion');

@@ -17,6 +17,7 @@ export const RegAdmin = () => {
     contrasena: ""
   });
 
+  /* Cambiamos la informacion de los inputs y la guardamos en los estados */
   const handleInputChange = ({ target }) => {
     setDataReg({
       ...dataReg,
@@ -24,11 +25,13 @@ export const RegAdmin = () => {
     });
   };
 
+  /* Llama a Validateform */
   const handleSubmit = (e) => {
     e.preventDefault();
     handleValidateForm();
   };
 
+  /* Valida si la informacion no esta VideoPlaybackQuality, de estar correcta mandara llamar HandleSendData */
   const handleValidateForm = () => {
     if(dataReg.nombre.length > 0 && dataReg.apellidoUno.length > 0 && dataReg.apellidoDos.length > 0 && dataReg.correo.length > 0 && dataReg.telefono.length > 0 && dataReg.contrasena.length > 0){
       handleSendData();
@@ -37,6 +40,7 @@ export const RegAdmin = () => {
     }
   };
 
+  /* Manda una peticion al servidor para guardar la informacion del Admin */
   const handleSendData = () => {
     const f = new FormData();
     f.append('p', 'regAdmin');

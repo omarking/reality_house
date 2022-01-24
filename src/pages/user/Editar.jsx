@@ -17,6 +17,7 @@ export const Editar = ({ history }) => {
   const [rutas, setRutas] = useState({});
   const [nombreProducto, setNombreProducto] = useState("");
 
+  /* Obtenemos la informacion del producto */
   const handleGetData = () => {
     const f = new FormData();
     f.append("p", "getProductForId");
@@ -51,6 +52,7 @@ export const Editar = ({ history }) => {
     });
   };
 
+  /* Obtenemos las categorias */
   const handleGetCategory = () => {
     const p = new FormData();
     p.append("p", "query");
@@ -61,6 +63,7 @@ export const Editar = ({ history }) => {
     });
   };
 
+  /* Obtenemos y cambiamos la informacion de los inputs */
   const handleInputData = ({target}) => {
     setDatosForm({
       ...datosForm,
@@ -68,6 +71,7 @@ export const Editar = ({ history }) => {
     });
   }
 
+  /* Obtenemos y cambiamos la informacion de las imagenes de los inputs */
   const handleInputImage = ({target}) => {
     setDatosForm({
       ...datosForm,
@@ -75,6 +79,7 @@ export const Editar = ({ history }) => {
     });
   }
 
+  /* Creamos una url temporal para mostrarla en el componente de las imagenes */
   const handleImgData = (e) => {
     const objetUrl = URL.createObjectURL(e.target.files[0]);
     setRutas({
@@ -91,6 +96,7 @@ export const Editar = ({ history }) => {
     }, 5000);
   };
 
+  /* Validamos que la informacion sea correcta antes de enviarla */
   const handleValidateForms = () => {
     if(Object.keys(datosForm).length < 10) {
       handleChangeValidate();
@@ -103,11 +109,13 @@ export const Editar = ({ history }) => {
     }
   }
 
+
   const HandleSubmit = (e) => {
     e.preventDefault();
     handleValidateForms();
   }
 
+  /* Mandamos la informacion actualizada */
   const handleSendData = () => {
     const f = new FormData();
     f.append('p', 'updateProduct');

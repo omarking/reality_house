@@ -33,6 +33,7 @@ export const AgregarProducto = ({history}) => {
     ruta4: "",
   });
 
+  /* Obtenemos las categorias del producto */
   const handleGetCategory = () => {
     const p = new FormData();
     p.append("p", "query");
@@ -43,6 +44,7 @@ export const AgregarProducto = ({history}) => {
     });
   };
 
+  /* Creamos una ruta temporal para poder previsualizar la imagen en el componente */
   const handleImage = (e) => {
     const objectURL = URL.createObjectURL(e.target.files[0]);
     setRuta({
@@ -51,11 +53,13 @@ export const AgregarProducto = ({history}) => {
     });
   };
 
+  /* Madamos llamar a validateForms */
   const handleSubmit = (e) => {
     e.preventDefault();
     handleValidateForms();
   };
 
+  /* Si toda la informacion esta correcta manda llamar a sendData */
   const handleValidateForms = () => {
     const values = Object.keys(dataFormulario);
     let count = 0;
@@ -82,6 +86,7 @@ export const AgregarProducto = ({history}) => {
     }, 5000);
   };
 
+  /* manda peticion al back con los datos del producto para guardarlos */
   const handleSendData = () => {
     const f = new FormData();
     f.append( 'p', 'saveProduct' );
@@ -101,6 +106,7 @@ export const AgregarProducto = ({history}) => {
     });
   };
 
+  /* Cambia y guarda la informacion de los inputs */
   const handleInputChange = ({target}) => {
     setDataFormulario({
       ...dataFormulario,
@@ -108,6 +114,7 @@ export const AgregarProducto = ({history}) => {
     });
   };
 
+  /* Cambia y guarda la informacion de las imagenes de los inputs */
   const handleInputFile = ({target}) => {
     setDataFormulario({
       ...dataFormulario,

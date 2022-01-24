@@ -13,6 +13,7 @@ export const EditImg = () => {
   const [idUser, setIdUser] = React.useState("");
   const [datosForm, setDatosForm] = React.useState();
 
+  /* Obtenemos la informacion del usuario */
   const handleGetDataUser = () => {
     const f = new FormData();
     f.append("p", "getInfoUser");
@@ -29,15 +30,18 @@ export const EditImg = () => {
     });
   };
 
+  /* Obtenemos la imagen que se acaba de ingresar y su informacion */
   const handleInputImage = ({ target }) => {
     setDatosForm(target.files[0]);
   };
 
+  /* Creamos una ruta temporal para pre vidualizar la imagen en el componente */
   const handleImgData = (e) => {
     const objetUrl = URL.createObjectURL(e.target.files[0]);
     setRuta(objetUrl);
   };
 
+  /* Mandamos la nueva imagen al servidor para que la guarde */
   const handleSendImg = () => {
     const f = new FormData();
     f.append('p', 'changeImgProfile');

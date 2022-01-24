@@ -7,10 +7,12 @@ export const InputChangeEmail = () => {
     const [email, setEmail] = React.useState('');
     const [validate, setValidate] = React.useState(false);
 
+    /* Cambia la informacion del input */
     const handleInput = ({target}) =>{
         setEmail(target.value);
     };
 
+    /* funcion del submit */
     const handleSubmit = () => {
         if(email.length < 5){
             setValidate(true);
@@ -20,6 +22,7 @@ export const InputChangeEmail = () => {
         }
     }
 
+    /* Manda la peticion al sistema para que recupere la contrasena */
     const handleSendData = () =>{
         const f = new FormData();
         f.append('p', 'recPassword');

@@ -5,6 +5,8 @@ import { handlePost, urlServer } from "../../functions/axiosPost";
 
 export const CardProducto = ({ urlImagen, codigoProducto, nombreProducto, precio, categoria, tienda}) => {
   const history = useHistory();
+
+  /* Llama a handleDeleteProductDe ser confirmada la eliminacion del producto */
   const handleDelete = () =>{
     swal({
       title: "Confirme",
@@ -19,6 +21,7 @@ export const CardProducto = ({ urlImagen, codigoProducto, nombreProducto, precio
     })
   }
 
+  /* Manda una solicitud al back para que elime el producto */
   const handleDeletProduct = (codigoProducto) => {
     const f = new FormData();
     f.append('p', 'deleteProduct');

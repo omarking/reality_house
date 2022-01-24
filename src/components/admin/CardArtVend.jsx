@@ -13,6 +13,7 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
   /* states */
   const [statusModel, setStatusModel] = React.useState((estado === "1") ? true : false);
 
+  /* Esta funcion llama a handleStatus y le manda por parametro el respectivo estado del modelo */
   const handleChangeStatusModel = ({target}) => {
     if(target.name === 'terminado'){
       setStatusModel(true);
@@ -23,6 +24,7 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
     }
   }
 
+  /* Esta funcion envia una peticion al back para que cambie el estado del modelo3D del codigoProducto. */
   const handleStatus = (estado, est) => {
     const f = new FormData();
     f.append('p', 'changeStatusModel');
@@ -46,6 +48,8 @@ const CardArtVend = ({id, imgPrincipal, titulo, categoria, marca, precio, estado
     });
   };
 
+  /* Esta funcion evalua si ya existe un codigo QR, si existe lo va a descargar desde las imagenes guardadas el servidor
+  de lo contrario generara un nuevo codigo con el enlace del producto */
   const handleDownloadCode = () => {
     if(codigoQR === null){
       const svg = document.getElementById("QRCode");

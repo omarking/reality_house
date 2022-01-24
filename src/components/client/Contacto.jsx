@@ -12,11 +12,14 @@ export const Contacto = () => {
     message: "",
   });
 
+  /* Esta es la funcion del submit, esta llama Validateform */
   const handleSubmit = (event) => {
     event.preventDefault();
     handleValidateForm();
   };
 
+  /* Esta funcion evalua que los valores que deben llenar los formularios no vengan vacios,
+  si no vienen vacios mandara llamar a handleSendEmail el cual manda el mensaje de contacto */
   const handleValidateForm = () => {
     if (
       dataEmail.nombre.length <= 4 ||
@@ -31,6 +34,7 @@ export const Contacto = () => {
     }
   };
 
+  /* Manda el email con los datos proporcionados por el formulario */
   const handleSendEmail = () => {
     const f = new FormData();
     f.append('p', 'emailContact');
@@ -65,6 +69,7 @@ export const Contacto = () => {
     });
   };
 
+  /* con esta funcion cambiamos el valor de los datos del formulario */
   const handleForm = ({ target }) => {
     setDataEmail({
       ...dataEmail,

@@ -15,7 +15,7 @@ export const Articulo = () => {
     handleProducto(tienda, codigoProducto);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
-
+  /* Obtenemos la informacion del producto desde el servidor */
   const handleProducto = (tienda, codigoProducto) =>{
     const f = new FormData();
     f.append('p', 'getProductForId');

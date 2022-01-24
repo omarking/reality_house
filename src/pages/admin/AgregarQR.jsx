@@ -15,6 +15,7 @@ export const AgregarQR = () => {
     "./img/profile.png"
   );
 
+  /* Obtenemos la informacion del producto */
   const handleGetData = () => {
     const f = new FormData();
     f.append("p", "getProductForId");
@@ -26,15 +27,18 @@ export const AgregarQR = () => {
     });
   };
 
+  /* Obtenemos la imagen en un estado */
   const handleInputImage = ({ target }) => {
     setImgCodigo(target.files[0]);
   };
 
+  /* Generamos una url temporal para visualizarla en el componente de agregar */
   const handleChangeUrlData = (e) => {
     const objetUrl = URL.createObjectURL(e.target.files[0]);
     setRuta(objetUrl);
   };
 
+  /* La funcion submit */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (imgCodigo !== undefined) {

@@ -8,6 +8,7 @@ export const NavBar = () => {
   const {user:{logged}, dispatch} = useContext(AuthContext);
   const {user} = useContext(AuthContext);
 
+    /* Destruye las variables del usuario y el estado de login */
   const handleLogout = () => {
     dispatch({
       type: types.logout

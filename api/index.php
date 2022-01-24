@@ -9,6 +9,7 @@ header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Conte
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
+/* Recibe las peticiones del sistema y busca que accion ejecutar */ 
 switch ($_SERVER['REQUEST_METHOD']){
     case 'POST':
         if(isset($_POST['p'])){

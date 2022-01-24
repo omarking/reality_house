@@ -13,6 +13,7 @@ export const Login = ({ history }) => {
   const [inputPass, setInputPass] = React.useState(false);
   const [error, setError] = React.useState(false);
 
+  /* Solicitamos la informacion del servidor y si nos retorna una respuesta correcta mandamos llamar a handleLoginSesion */
   const handleLogin = (e) => {
     e.preventDefault();
     if (email.length === 0) {
@@ -46,6 +47,7 @@ export const Login = ({ history }) => {
     }
   };
 
+  /* Guardamos la informacion en el contexto de la aplicacion para usarla en todo el sistema */
   const handleLoginSesion = (data) => {
     dispatch({
       type: types.login,
@@ -61,10 +63,12 @@ export const Login = ({ history }) => {
     localStorage.setItem("dateSesion", date2);
   };
 
+  /* almacenamos la funcion del email */
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
 
+  /* almacenamos la funcion del password */
   const handlePassword = (event) => {
     setPass(event.target.value);
   };
